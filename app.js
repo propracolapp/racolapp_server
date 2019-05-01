@@ -3,12 +3,12 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import api from "./controllers/index";
 import cors from "cors";
+dotenv.config();
 
 const start = () => {
 	try {
 		const app = express();
-		const port = process.env.APP_PORT || 8080;
-		dotenv.config();
+		let PORT = process.env.PORT || 8081;
 
 		app.use(bodyParser.json());
 		app.use(cors());
@@ -19,8 +19,8 @@ const start = () => {
 			})
 		);
 		app.use("/", api);
-		app.listen(port, () => {
-			console.log(`Server start on port: ${port}`);
+		app.listen(PORT, () => {
+			console.log(`Server start on port: ${PORT}`);
 		});
 	} catch (err) {
 		console.log(`Error server doesn't reply ${err.message}`);
