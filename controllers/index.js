@@ -6,7 +6,7 @@ import events from "./events";
 const api = Router();
 
 api.get("/", (req, res) => {
-	res.json({
+	res.send({
 		name: "racolapp",
 		status: "running"
 	});
