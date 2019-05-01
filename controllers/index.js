@@ -5,7 +5,7 @@ import events from "./events";
 
 const api = Router();
 
-api.use("/", res => {
+api.get("/", (req, res) => {
 	res.json({
 		name: "racolapp",
 		status: "running"
