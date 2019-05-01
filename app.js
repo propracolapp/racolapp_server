@@ -7,6 +7,7 @@ import cors from "cors";
 const start = () => {
 	try {
 		const app = express();
+		const port = process.env.APP_PORT || 8081;
 		dotenv.config();
 
 		app.use(bodyParser.json());
@@ -14,12 +15,12 @@ const start = () => {
 
 		app.use(
 			bodyParser.urlencoded({
-				extended: false
+				extended: true
 			})
 		);
 		app.use("/", api);
-		app.listen(process.env.APP_PORT, () => {
-			console.log(`Server start on port: ${process.env.APP_PORT}`);
+		app.listen(port, () => {
+			console.log(`Server start on port: ${port}`);
 		});
 	} catch (err) {
 		console.log(`Error server doesn't reply ${err.message}`);
