@@ -7,7 +7,7 @@ import cors from "cors";
 const start = () => {
 	try {
 		const app = express();
-		const port = process.env.APP_PORT || 8081;
+		const port = process.env.APP_PORT || 8080;
 		dotenv.config();
 
 		app.use(bodyParser.json());
