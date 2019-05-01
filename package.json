@@ -4,13 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "D": "^1.0.0",
     "body-parser": "^1.19.0",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "nodemon": "^1.18.11"
   },
   "scripts": {
+    "init": " shx cp .env.dist .env",
     "start": " nodemon app.js --exec babel-node",
     "test": "nodemon app.js --exec babel-node"
   },
@@ -18,11 +18,13 @@
     "heroku"
   ],
   "devDependencies": {
-    "jest": "^24.7.1",
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.4",
     "@babel/node": "^7.2.2",
-    "@babel/preset-env": "^7.4.4"
+    "@babel/preset-env": "^7.4.4",
+    "eslint": "^5.16.0",
+    "jest": "^24.7.1",
+    "shx": "^0.3.2"
   },
   "engines": {
     "node": "10.15.3"
