@@ -21,9 +21,8 @@ const start = () => {
 			{ host: config.host, dialect: config.dialect }
 		);
 		instance.run( err =>{
-			console.log(instance.tables);
+			// console.log(instance.tables);
 			// console.log(instance.foreignKeys); 
-
 		});
 
 		app.use(bodyParser.json());
