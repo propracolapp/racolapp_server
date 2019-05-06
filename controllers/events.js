@@ -1,11 +1,13 @@
 import { Router } from "express";
+import Users from '../models/Users';
 
 const api = Router();
 
 api.get("/", (req, res) => {
+	
 	res.json({
-		route: "event"
-	});
+		Elements: Users.findAll()
+	})
 });
 
 export default api;
