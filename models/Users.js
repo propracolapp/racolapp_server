@@ -2,7 +2,7 @@ import Sequelize, { Model } from "sequelize";
 /* jshint indent: 1 */
 
 export default class Users extends Model {
-	staticinit(database) {
+	static init(database) {
 		return super.init(
 			{
 				ID: {

@@ -1,4 +1,4 @@
-import sequelize from "sequelize";
+import Sequelize from "sequelize";
 import sequelizeAuto from "sequelize-auto";
 import mysql from "mysql2";
 
@@ -9,7 +9,7 @@ import Registration from "./Registration";
 
 var env = process.env.DB_ENV || "development";
 var config = require("../config/config")[env];
-export const db = new sequelize(
+export const db = new Sequelize(
 	config.database,
 	config.username,
 	config.password,
@@ -20,13 +20,13 @@ export const db = new sequelize(
 );
 db.authenticate()
 	.then(() => {
-		console.log(" err ");
+		console.log("success");
 	})
 	.catch(err => {
-		console.log("success");
+		console.log(" error ");
 	});
 
 Users.init(db);
-Events.init(db);
-TypeEvents.init(db);
-Registration.init(db);
+// Events.init(db);
+// TypeEvents.init(db);
+// Registration.init(db);
