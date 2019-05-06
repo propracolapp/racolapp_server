@@ -57,6 +57,9 @@ export default class Events extends Model {
 						model: "TypeEvents",
 						key: "ID"
 					}
+				},
+				CreatedAt: {
+					type: Sequelize.DATETIME
 				}
 			},
 			{

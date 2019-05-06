@@ -23,7 +23,7 @@ db.authenticate()
 		console.log("success");
 	})
 	.catch(err => {
-		console.log(" error ");
+		console.log("error");
 	});
 
 Users.init(db);
