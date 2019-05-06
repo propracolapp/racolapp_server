@@ -1,22 +1,25 @@
 /* jshint indent: 1 */
-
-module.exports = function(sequelize, DataTypes) {
-	return sequelize.define(
-		"TypeEvents",
-		{
-			ID: {
-				type: DataTypes.INTEGER(11),
-				allowNull: false,
-				primaryKey: true,
-				autoIncrement: true
+import Sequelize, { Model } from "sequelize";
+export default class TypeEvents extends Model {
+	static init(database) {
+		
+		return super.init(
+			{
+				ID: {
+					type: Sequelize.INTEGER(11),
+					allowNull: false,
+					primaryKey: true,
+					autoIncrement: true
+				},
+				name: {
+					type: Sequelize.STRING(255),
+					allowNull: true
+				}
 			},
-			name: {
-				type: DataTypes.STRING(255),
-				allowNull: true
+			{
+				tableName: "TypeEvents",
+				sequelize: database
 			}
-		},
-		{
-			tableName: "TypeEvents"
-		}
-	);
-};
+		);
+	}
+}

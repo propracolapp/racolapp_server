@@ -7,20 +7,26 @@ import Events from "./Events";
 import TypeEvents from "./TypeEvents";
 import Registration from "./Registration";
 
-var env = process.env.NODE_ENV || "development";
+var env = process.env.DB_ENV || "development";
 var config = require("../config/config")[env];
-export const instance = new sequelize(
+export const db = new sequelize(
 	config.database,
 	config.username,
 	config.password,
-	{ host: config.host, dialect: config.dialect }
+	{
+		host: config.host,
+		dialect: config.dialect
+	}
 );
-//	instance.run(err => {
-//console.log(instance.tables);
-// console.log(instance.foreignKeys);
-// 	});
+db.authenticate()
+	.then(() => {
+		console.log(" err ");
+	})
+	.catch(err => {
+		console.log("success");
+	});
 
-// Users.init(instance);
-// Events.init(instance);
-// TypeEvents.init(instance);
-// Registration.init(instance);
+Users.init(db);
+Events.init(db);
+TypeEvents.init(db);
+Registration.init(db);

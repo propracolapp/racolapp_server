@@ -1,14 +1,16 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
-import {  Strategy as JwtStrateg, ExtractJwt } from "passport-jwt";
+import { Strategy as JwtStrateg, ExtractJwt } from "passport-jwt";
 import Users from "../models/Users";
 
 passport.use(
-    new LocalStrategy({
-        usernameField: "nickname",
-        passwordField: "password"
-    },
-    async (nickname, password, next) => {
-        const user= await Users.findOne
-    })
-)
+	new LocalStrategy(
+		{
+			usernameField: "nickname",
+			passwordField: "password"
+		},
+		(nickname, password, next) => {
+			const user = Users.findOne;
+		}
+	)
+);
