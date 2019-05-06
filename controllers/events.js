@@ -5,7 +5,7 @@ const api = Router();
 
 api.get("/", async (req, res) => {
 	res.json({
-		Elements: await Users.findAll()
+		Elements: Users.findAll()
 	})
 });
 
