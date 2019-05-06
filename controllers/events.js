@@ -3,10 +3,9 @@ import Users from '../models/Users';
 
 const api = Router();
 
-api.get("/", (req, res) => {
-	
+api.get("/", async (req, res) => {
 	res.json({
-		Elements: Users.findAll()
+		Elements: await Users.findAll()
 	})
 });
 
