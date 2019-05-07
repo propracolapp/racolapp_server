@@ -17,6 +17,23 @@ api.get("/", async (req, res) => {
 		});
 });
 
+// get user by id
+api.get("/:id", async (req, res) => {
+	const data = await Users.findByPk(req.params.id)
+	.then(data => {
+		res.status(200);
+		res.json({
+			data
+		});
+	})
+	.catch(err => {
+		res.status(500);
+		res.json({
+			err: err.message
+		});
+	});
+});
+// Register users
 api.post("/", (req, res) => {
 	Users.create({
 		ID: req.body.id,
@@ -34,22 +51,6 @@ api.post("/", (req, res) => {
 		.catch(function(error) {
 			res.status(500);
 			res.json({ error: error.message });
-		});
-});
-// get user by id
-api.get("/:id", async (req, res) => {
-	const data = await Users.findByPk(req.params.id)
-		.then(data => {
-			res.status(200);
-			res.json({
-				data
-			});
-		})
-		.catch(err => {
-			res.status(500);
-			res.json({
-				err: err.message
-			});
 		});
 });
 // modify user by id
@@ -75,7 +76,6 @@ api.put("/:id", (req, res, next) => {
 		});
 });
 // delete user by id
-
 api.delete("/:id", (req, res, next) => {
 	Users.destroy({
 		where: { id: id }
