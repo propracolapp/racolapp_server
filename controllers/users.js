@@ -1,13 +1,13 @@
 import { Router } from "express";
-import { Users } from "../models/Users";
+import Users from "../models/Users";
 
 const api = Router();
 
-api.get("/", (req, res) => {
-	const data = Users.findAll();
+api.get("/", async (req, res) => {
+	const data = await Users.findAll();
 	console.log(data);
 	res.json({
-		route: "users"
+		data
 	});
 });
 
