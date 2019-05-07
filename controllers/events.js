@@ -33,7 +33,7 @@ api.get("/:id", async (req, res) => {
 // Add user
 api.post("/", async (req, res) => {
   const createdAt = new now();
-  Events.create(
+  await Events.create(
     {
       name: req.body.name,
       long: req.body.long,
@@ -62,8 +62,8 @@ api.post("/", async (req, res) => {
 });
 
 // modify event by id
-api.put("/:id", (req, res) => {
-  Events.update(
+api.put("/:id", async (req, res) => {
+  await Events.update(
     {
       name: req.body.name,
       long: req.body.long,

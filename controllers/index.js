@@ -3,6 +3,7 @@ import users from "./users";
 import map from "./map";
 import events from "./events";
 import TypeEvents from "./typeEvents";
+import Registrations from '../models/Registrations';
 
 const api = Router();
 
@@ -20,5 +21,7 @@ api.use("/events", events);
 api.use("/typeEvents", TypeEvents);
 
 api.use("/map", map);
+
+api.use("/registrations", Registrations);
 
 export default api;

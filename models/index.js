@@ -3,7 +3,7 @@ import sequelizeAuto from "sequelize-auto";
 import mysql from "mysql2";
 import Users from "./Users";
 import Events from "./Events";
-import Registration from "./Registration";
+import Registrations from "./Registrations";
 import TypeEvents from "./TypeEvents";
 
 var env = process.env.DB_ENV || "development";
@@ -34,7 +34,7 @@ Users.init(db);
 
 Events.init(db);
 TypeEvents.init(db);
-Registration.init(db);
+Registrations.init(db);
 
 // Users.belongsToMany(Events, { through: Registration });
 // Events.belongsToMany(Users, { through: Registration });

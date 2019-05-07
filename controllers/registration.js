@@ -1,30 +1,28 @@
 import { Router } from "express";
-import TypeEvents from '../models/TypeEvents';
-import { now } from 'moment';
+import Registrations from '../models/Registrations';
 
 const api = Router();
 
 api.get("/", async (req, res) => {
-	await TypeEvents.findAll()
-	.then(data =>{
-		console.log(data)
+	await Registrations.findAll().then(data => {
+		res.status(200);
 		res.json({
-			data
+			route: data
 		});
-	})
-	.catch(err => {
+	}).catch(err =>{
 		res.status(500);
 		res.json({
 			error: err.message
 		})
-	})
+	});
 });
-
 
 api.post("/", async (req, res) =>{
 	const createdAt = new now();
-	await TypeEvents.create({
-		name: req.body.name,
+	await Registrations.create({
+        registrated: req.body.registrated,
+        Users_ID: req.body.Users_ID,
+        Events_ID: req.body.Events_ID,
 		created_at: createdAt
 	},
 	{ where: { ID: req.body.id }, returning: true, plain: true })
@@ -40,7 +38,7 @@ api.post("/", async (req, res) =>{
 
 
 api.delete("/:id", async (req, res) => {
-	await TypeEvents.destroy({
+	await Registrations.destroy({
 	  where: { ID: req.params.id }
 	})
 	  .then(data => {
@@ -54,9 +52,11 @@ api.delete("/:id", async (req, res) => {
   });
 
   api.put("/:id", async (req, res) => {
-	await TypeEvents.update(
+	await Registrations.update(
 	  {
-		name: req.body.name,
+		registrated: req.body.registrated,
+        Users_ID: req.body.Users_ID,
+        Events_ID: req.body.Events_ID,
 		created_at: createdAt
 	  },
 	  { where: { ID: req.body.id }, returning: true, plain: true }
@@ -69,6 +69,5 @@ api.delete("/:id", async (req, res) => {
 		res.status(500);
 		res.json({ error: error.message });
 	  });
-	});
-	
+  });
 export default api;
