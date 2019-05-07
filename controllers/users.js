@@ -4,7 +4,7 @@ import Users from "../models/Users";
 const api = Router();
 
 api.get("/", async (req, res) => {
-	const data = await Users.findOne({ where: { ID: 1 } });
+	const data =  Users.findOne({ where: { ID: 1 } });
 	console.log(data);
 
 	res.json({
