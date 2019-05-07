@@ -5,7 +5,7 @@ import { now } from "moment";
 const api = Router();
 
 api.get("/", async (req, res) => {
-	const data = await Users.findAll()
+	await Users.findAll()
 		.then(data => {
 			console.log(data);
 			res.json({
@@ -14,13 +14,15 @@ api.get("/", async (req, res) => {
 		})
 		.catch(err => {
 			res.status(500);
-			res.json({ error: err.message });
+			res.json({
+				error: err.message
+			});
 		});
 });
 
 // get user by id
 api.get("/:id", async (req, res) => {
-	const data = await Users.findByPk(req.params.id)
+	await Users.findByPk(req.params.id)
 		.then(data => {
 			res.status(200);
 			res.json({
@@ -49,7 +51,6 @@ api.post("/", (req, res) => {
 		.then(function(data) {
 			res.status(200);
 			res.json(data.get({ plain: true }));
-			
 		})
 		.catch(function(error) {
 			res.status(500);
@@ -57,8 +58,8 @@ api.post("/", (req, res) => {
 		});
 });
 // modify user by id
-api.put("/:id", (req, res, next) => {
-	Users.update(
+api.put("/:id", async (req, res, next) => {
+	await Users.update(
 		{
 			pseudo: req.body.pseudo,
 			mail: req.body.mail,
@@ -80,8 +81,8 @@ api.put("/:id", (req, res, next) => {
 		});
 });
 // delete user by id
-api.delete("/:id", (req, res) => {
-	Users.destroy({
+api.delete("/:id", async (req, res) => {
+	await Users.destroy({
 		where: { ID: req.params.id }
 	})
 		.then(data => {
