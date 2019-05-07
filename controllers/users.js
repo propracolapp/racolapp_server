@@ -57,7 +57,7 @@ api.post("/", (req, res) => {
 		});
 });
 // modify user by id
-api.put("/:id", (req, res, next) => {
+api.put("/:id", (req, res) => {
 	Users.update(
 		{
 			pseudo: req.body.pseudo,
