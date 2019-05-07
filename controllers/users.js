@@ -14,14 +14,22 @@ api.get("/", async (req, res) => {
 });
 
 api.post("/", async (req, res) => {
-	const user = new Users(req.body);
-	user
-		.save()
-		.then(user => {
-			res.json("User added successfully");
+	Users.create({
+		ID: req.body.id,
+		pseudo: req.body.pseudo,
+		mail: req.body.mail,
+		birthday: req.body.birthday,
+		active: req.body.active,
+		prenium: req.body.type_utilisateur,
+		img_profile: req.body.img_profile
+	})
+		.then(function(data) {
+			res.status(200);
+			res.json(data.get({ plain: true }));
 		})
-		.catch(err => {
-			res.status(400).send("unable to save to database");
+		.catch(function(error) {
+			res.status(500);
+			res.json({ error: error, stackError: error.stack });
 		});
 });
 
