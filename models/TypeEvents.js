@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 import { Model, Sequelize } from "sequelize";
 
-class TypeEvents extends Model {
+export default class TypeEvents extends Model {
 	static init(database) {
 		return super.init(
 			{
@@ -25,7 +25,8 @@ class TypeEvents extends Model {
 				}
 			},
 			{
-				tableName: "TypeEvents"
+				tableName: "TypeEvents",
+				sequelize: database
 			}
 		);
 	}

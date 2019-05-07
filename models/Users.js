@@ -1,7 +1,8 @@
 /* jshint indent: 2 */
-import { Model, Sequelize } from "sequelize";
+import Sequelize, { Model } from "sequelize";
 
 export default class Users extends Model {
+
 	static init(database) {
 		return super.init(
 			{
@@ -47,7 +48,8 @@ export default class Users extends Model {
 				}
 			},
 			{
-				tableName: "Users"
+				tableName: "Users",
+				sequelize: database,
 			}
 		);
 	}

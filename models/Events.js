@@ -68,7 +68,8 @@ export default class Events extends Model {
 				}
 			},
 			{
-				tableName: "Events"
+				tableName: "Events",
+				sequelize: database
 			}
 		);
 	}
