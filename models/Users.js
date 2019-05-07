@@ -1,8 +1,8 @@
 /* jshint indent: 2 */
-import { db } from './index';
+import { Model, Sequelize } from "sequelize";
 
 export default class Users extends Model {
-	static init(database){
+	static init(database) {
 		return super.init(
 			{
 				ID: {
@@ -46,8 +46,9 @@ export default class Users extends Model {
 					allowNull: true
 				}
 			},
-			 {
+			{
 				tableName: "Users"
-			});
+			}
+		);
 	}
 }

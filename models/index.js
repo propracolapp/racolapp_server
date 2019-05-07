@@ -25,8 +25,8 @@ db.authenticate()
 		console.log("error");
 	});
 
-	console.log(Users);
-	
+console.log(Users);
+
 Users.init(db);
 Events.init(db);
 TypeEvents.init(db);
