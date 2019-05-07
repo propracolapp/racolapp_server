@@ -5,7 +5,7 @@ const api = Router();
 
 // get events
 api.get("/", async (req, res) => {
-	const data = Events.findAll();
+	const data = await Events.findAll();
 	res
 		.json({
 			data
