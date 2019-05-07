@@ -58,8 +58,13 @@ api.post("/", (req, res) => {
 		});
 });
 // modify user by id
+<<<<<<< HEAD
 api.put("/:id", async (req, res, next) => {
 	await Users.update(
+=======
+api.put("/:id", (req, res) => {
+	Users.update(
+>>>>>>> 37b33272dc1aa7c441c951db34773d83e083ef6a
 		{
 			pseudo: req.body.pseudo,
 			mail: req.body.mail,
