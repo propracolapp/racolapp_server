@@ -5,8 +5,8 @@ const api = Router();
 
 api.get("/", async (req, res) => {
 	res.json({
-		Elements: Users.findAll()
-	})
+		Elements: "Users.findAll()"
+	});
 });
 
 export default api;
