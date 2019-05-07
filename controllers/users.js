@@ -38,7 +38,6 @@ api.get("/:id", async (req, res) => {
 api.post("/", (req, res) => {
 	const createdAt = new now();
 	Users.create({
-		ID: req.body.id,
 		pseudo: req.body.pseudo,
 		mail: req.body.mail,
 		password: req.body.password,
@@ -50,6 +49,7 @@ api.post("/", (req, res) => {
 		.then(function(data) {
 			res.status(200);
 			res.json(data.get({ plain: true }));
+			
 		})
 		.catch(function(error) {
 			res.status(500);
