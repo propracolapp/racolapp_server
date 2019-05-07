@@ -2,7 +2,6 @@
 import Sequelize, { Model } from "sequelize";
 
 export default class Users extends Model {
-
 	static init(database) {
 		return super.init(
 			{
@@ -50,6 +49,12 @@ export default class Users extends Model {
 			{
 				tableName: "Users",
 				sequelize: database,
+				indexes: [
+					{
+						unique: true,
+						fields: ["ID"]
+					}
+				]
 			}
 		);
 	}

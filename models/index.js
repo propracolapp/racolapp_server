@@ -30,7 +30,6 @@ db.authenticate()
 		console.log("error");
 	});
 
-console.log(Users);
 
 Users.init(db);
 
