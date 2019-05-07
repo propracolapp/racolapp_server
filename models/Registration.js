@@ -1,44 +1,16 @@
-/* jshint indent: 1 */
-import Sequelize, { Model } from "sequelize";
-export default class Registration extends Model {
-	static init(database) {
-		return super.init(
-			{
-				registrated: {
-					type: Sequelize.INTEGER(4),
-					allowNull: true
-				},
-				Users_ID: {
-					type: Sequelize.INTEGER(11),
-					allowNull: false,
-					primaryKey: true,
-					references: {
-						model: "Users",
-						key: "ID"
-					}
-				},
-				Events_ID: {
-					type: Sequelize.INTEGER(11),
-					allowNull: false,
-					primaryKey: true,
-					references: {
-						model: "Events",
-						key: "ID"
-					}
-				},
-				     createdAt: {
-					field: 'created_at',
-					type: Sequelize.DATE,
-				},
-				updatedAt: {
-					field: 'updated_at',
-					type: Sequelize.DATE,
-				},
-			},
-			{
-				tableName: "Registration",
-				sequelize: database
-			}
-		);
-	}
-}
+"use strict";
+module.exports = (sequelize, DataTypes) => {
+	const Registration = sequelize.define(
+		"Registration",
+		{
+			registrated: DataTypes.NUMBER,
+			user_id: DataTypes.NUMBER,
+			events_id: DataTypes.NUMBER
+		},
+		{}
+	);
+	Registration.associate = function(models) {
+		// associations can be defined here
+	};
+	return Registration;
+};
