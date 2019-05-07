@@ -1,6 +1,5 @@
 /* jshint indent: 2 */
-import { Model } from "sequelize";
-import { Sequelize } from "sequelize";
+import Sequelize, { Model } from "sequelize";
 
 export default class Registrations extends Model {
 	static init(database) {
@@ -8,7 +7,8 @@ export default class Registrations extends Model {
 			{
 				registrated: {
 					type: Sequelize.INTEGER(4),
-					allowNull: true
+					allowNull: false,
+					primaryKey: true
 				},
 				Users_ID: {
 					type: Sequelize.INTEGER(11),
@@ -40,13 +40,7 @@ export default class Registrations extends Model {
 			{
 				tableName: "Registration",
 				sequelize: database,
-				timestamps: false,
-				indexes: [
-					{
-						unique: true,
-						fields: ["User_ID", "Events_ID", "registrated"]
-					}
-				]
+				timestamps: false
 			}
 		);
 	}
