@@ -1,5 +1,6 @@
 import { Router } from "express";
 import Users from "../models/Users";
+import { now } from "moment";
 
 const api = Router();
 
@@ -20,29 +21,31 @@ api.get("/", async (req, res) => {
 // get user by id
 api.get("/:id", async (req, res) => {
 	const data = await Users.findByPk(req.params.id)
-	.then(data => {
-		res.status(200);
-		res.json({
-			data
+		.then(data => {
+			res.status(200);
+			res.json({
+				data
+			});
+		})
+		.catch(err => {
+			res.status(500);
+			res.json({
+				err: err.message
+			});
 		});
-	})
-	.catch(err => {
-		res.status(500);
-		res.json({
-			err: err.message
-		});
-	});
 });
 // Register users
 api.post("/", (req, res) => {
+	const createdAt = new now();
 	Users.create({
 		ID: req.body.id,
 		pseudo: req.body.pseudo,
 		mail: req.body.mail,
-		birthday: req.body.birthday,
+		password: req.body.password,
 		active: req.body.active,
 		premium: req.body.premium,
-		img_profile: req.body.img_profile
+		img_profil: req.body.img_profil,
+		created_at: createdAt
 	})
 		.then(function(data) {
 			res.status(200);
@@ -59,12 +62,13 @@ api.put("/:id", (req, res, next) => {
 		{
 			pseudo: req.body.pseudo,
 			mail: req.body.mail,
-			birthday: req.body.birthday,
+			password: req.body.password,
 			active: req.body.active,
 			premium: req.body.premium,
-			img_profile: req.body.img_profile
+			img_profil: req.body.img_profil,
+			created_at: createdAt
 		},
-		{ where: { ID: req.params.id }, returning: true, plain: true }
+		{ where: { ID: req.body.id }, returning: true, plain: true }
 	)
 		.then(function(data) {
 			res.status(200);
@@ -76,15 +80,17 @@ api.put("/:id", (req, res, next) => {
 		});
 });
 // delete user by id
-api.delete("/:id", (req, res, next) => {
+api.delete("/:id", (req, res) => {
 	Users.destroy({
-		where: { id: id }
-	}).then(data =>{
-		res.status(200)
-		res.json(data.get({plain:true}))
-	}).catch(err =>{
-		res.status(500)
-		res.json({ error: err.message})
-	});
+		where: { ID: req.params.id }
+	})
+		.then(data => {
+			res.status(200);
+			res.json(data.get({ plain: true }));
+		})
+		.catch(err => {
+			res.status(500);
+			res.json({ error: err.message });
+		});
 });
 export default api;
