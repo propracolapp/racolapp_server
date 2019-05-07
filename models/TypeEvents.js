@@ -26,7 +26,14 @@ export default class TypeEvents extends Model {
 			},
 			{
 				tableName: "TypeEvents",
-				sequelize: database
+				sequelize: database,
+				timestamps: false,
+				indexes: [
+					{
+						unique: true,
+						fields: ["ID"]
+					}
+				]
 			}
 		);
 	}

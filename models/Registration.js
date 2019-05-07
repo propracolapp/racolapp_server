@@ -39,7 +39,14 @@ export default class Registrations extends Model {
 			},
 			{
 				tableName: "Registration",
-				sequelize: database
+				sequelize: database,
+				timestamps: false,
+				indexes: [
+					{
+						unique: true,
+						fields: ["User_ID", "Events_ID", "registrated"]
+					}
+				]
 			}
 		);
 	}

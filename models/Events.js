@@ -69,7 +69,14 @@ export default class Events extends Model {
 			},
 			{
 				tableName: "Events",
-				sequelize: database
+				sequelize: database,
+				timestamps: false,
+				indexes: [
+					{
+						unique: true,
+						fields: ["ID"]
+					}
+				]
 			}
 		);
 	}
