@@ -15,7 +15,7 @@ api.get("/", async (req, res) => {
     .catch(err => {
       res.status(500);
       res.json({
-        error: err.message
+        error: err
       });
     });
 });
