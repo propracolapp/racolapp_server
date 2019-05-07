@@ -4,7 +4,7 @@ import { Users } from "../models/Users";
 const api = Router();
 
 api.get("/", (req, res) => {
-	const data = Users.findAll({ attributes: ["ID"] });
+	const data = Users.findAll();
 	console.log(data);
 	res.json({
 		route: "users"

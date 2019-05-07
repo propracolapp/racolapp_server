@@ -47,7 +47,7 @@ export default class Users extends Model {
 				}
 			},
 			{
-				modelName: "Users",
+				tableName: "Users",
 				sequelize: database,
 				indexes: [
 					{

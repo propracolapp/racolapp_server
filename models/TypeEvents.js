@@ -25,7 +25,7 @@ export default class TypeEvents extends Model {
 				}
 			},
 			{
-				modelName: "TypeEvents",
+				tableName: "TypeEvents",
 				sequelize: database
 			}
 		);
