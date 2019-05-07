@@ -1,16 +1,42 @@
-"use strict";
-module.exports = (sequelize, DataTypes) => {
-	const Registration = sequelize.define(
+/* jshint indent: 2 */
+
+module.exports = function(sequelize, DataTypes) {
+	return sequelize.define(
 		"Registration",
 		{
-			registrated: DataTypes.NUMBER,
-			user_id: DataTypes.NUMBER,
-			events_id: DataTypes.NUMBER
+			registrated: {
+				type: DataTypes.INTEGER(4),
+				allowNull: true
+			},
+			Users_ID: {
+				type: DataTypes.INTEGER(11),
+				allowNull: false,
+				primaryKey: true,
+				references: {
+					model: "Users",
+					key: "ID"
+				}
+			},
+			Events_ID: {
+				type: DataTypes.INTEGER(11),
+				allowNull: false,
+				primaryKey: true,
+				references: {
+					model: "Events",
+					key: "ID"
+				}
+			},
+			created_at: {
+				type: DataTypes.DATE,
+				allowNull: true
+			},
+			updated_at: {
+				type: DataTypes.DATE,
+				allowNull: true
+			}
 		},
-		{}
+		{
+			tableName: "Registration"
+		}
 	);
-	Registration.associate = function(models) {
-		// associations can be defined here
-	};
-	return Registration;
 };

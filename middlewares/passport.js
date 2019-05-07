@@ -1,7 +1,7 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as JwtStrateg, ExtractJwt } from "passport-jwt";
-import Users from "../models/Users";
+// import Users from "../models/Users";
 
 passport.use(
 	new LocalStrategy(
@@ -10,7 +10,6 @@ passport.use(
 			passwordField: "password"
 		},
 		(nickname, password, next) => {
-			const user = Users.findOne;
 		}
 	)
 );

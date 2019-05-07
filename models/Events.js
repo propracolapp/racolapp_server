@@ -1,24 +1,74 @@
-"use strict";
-module.exports = (sequelize, DataTypes) => {
-	const Events = sequelize.define(
+/* jshint indent: 2 */
+
+module.exports = function(sequelize, DataTypes) {
+	return sequelize.define(
 		"Events",
 		{
-			id: DataTypes.NUMBER,
-			name: DataTypes.STRING,
-			long: DataTypes.STRING,
-			lat: DataTypes.STRING,
-			capacity: DataTypes.STRING,
-			date: DataTypes.DATE,
-			description: DataTypes.STRING,
-			duration: DataTypes.STRING,
-			counterViews: DataTypes.NUMBER,
-			user_id: DataTypes.NUMBER,
-			typeEvent_id: DataTypes.NUMBER
+			ID: {
+				type: DataTypes.INTEGER(11),
+				allowNull: false,
+				primaryKey: true,
+				autoIncrement: true
+			},
+			name: {
+				type: DataTypes.STRING(255),
+				allowNull: true
+			},
+			long: {
+				type: DataTypes.STRING(255),
+				allowNull: true
+			},
+			lat: {
+				type: DataTypes.STRING(255),
+				allowNull: true
+			},
+			capacity: {
+				type: DataTypes.INTEGER(11),
+				allowNull: true
+			},
+			date: {
+				type: DataTypes.DATE,
+				allowNull: true
+			},
+			description: {
+				type: DataTypes.STRING(255),
+				allowNull: true
+			},
+			duration: {
+				type: DataTypes.STRING(255),
+				allowNull: true
+			},
+			counterViews: {
+				type: DataTypes.INTEGER(11),
+				allowNull: true
+			},
+			Users_ID: {
+				type: DataTypes.INTEGER(11),
+				allowNull: false,
+				references: {
+					model: "Users",
+					key: "ID"
+				}
+			},
+			TypeEvents_ID: {
+				type: DataTypes.INTEGER(11),
+				allowNull: false,
+				references: {
+					model: "TypeEvents",
+					key: "ID"
+				}
+			},
+			created_at: {
+				type: DataTypes.DATE,
+				allowNull: true
+			},
+			updated_at: {
+				type: DataTypes.DATE,
+				allowNull: true
+			}
 		},
-		{}
+		{
+			tableName: "Events"
+		}
 	);
-	Events.associate = function(models) {
-		// associations can be defined here
-	};
-	return Events;
 };
