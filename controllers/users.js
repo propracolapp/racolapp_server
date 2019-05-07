@@ -1,5 +1,5 @@
 import { Router } from "express";
-import Users from "../models/Users";
+import Users from "../models/";
 
 const api = Router();
 
@@ -14,7 +14,7 @@ api.get("/", async (req, res) => {
 });
 
 api.post("/", async (req, res) => {
-	Users.create({
+	Users.save({
 		ID: req.body.id,
 		pseudo: req.body.pseudo,
 		mail: req.body.mail,
