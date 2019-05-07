@@ -3,15 +3,15 @@ import { Users } from "../models/Users";
 
 const api = Router();
 
-api.get("/", async (req, res) => {
-	const data = await Users.findAll({attributes: ['ID']});
+api.get("/", (req, res) => {
+	const data = Users.findAll({ attributes: ["ID"] });
+	console.log(data);
 	res.json({
-		route: "users",
-		user: {data}
+		route: "users"
 	});
 });
 
-api.post("/", async (req, res) => {
+api.post("/", (req, res) => {
 	Users.save({
 		ID: req.body.id,
 		pseudo: req.body.pseudo,

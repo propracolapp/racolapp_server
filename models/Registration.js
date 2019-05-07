@@ -38,7 +38,7 @@ export default class Registrations extends Model {
 				}
 			},
 			{
-				tableName: "Registration",
+				modelName: "Registration",
 				sequelize: database
 			}
 		);
