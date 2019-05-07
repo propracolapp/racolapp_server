@@ -16,7 +16,9 @@ export const db = new Sequelize(
 		host: config.host,
 		dialect: config.dialect,
 		port: config.port,
-		ssl:config.ssl,
+		dialectOptions: {
+			ssl: config.ssl,
+		},
 		define: {
 			timestramps: false
 		}
@@ -30,7 +32,6 @@ db.authenticate()
 		console.log("error");
 	});
 
-	
 Users.init(db);
 
 Events.init(db);
@@ -41,4 +42,3 @@ Registrations.init(db);
 // Events.belongsToMany(Users, { through: Registration });
 // TypeEvents.belongsTo(Events);
 // Users.belongsTo(Events);
-
