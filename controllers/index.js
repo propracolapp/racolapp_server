@@ -3,7 +3,7 @@ import users from "./users";
 import map from "./map";
 import events from "./events";
 import TypeEvents from "./typeEvents";
-import Registrations from '../models/Registrations';
+import Registrations from "../models/Registrations";
 
 const api = Router();
 

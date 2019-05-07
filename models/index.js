@@ -16,6 +16,7 @@ export const db = new Sequelize(
 		host: config.host,
 		dialect: config.dialect,
 		port: config.port,
+		ssl:config.ssl,
 		define: {
 			timestramps: false
 		}
