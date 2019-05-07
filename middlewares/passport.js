@@ -9,7 +9,8 @@ passport.use(
 			usernameField: "nickname",
 			passwordField: "password"
 		},
-		(nickname, password, next) => {
+		async (nickname, password, next) => {
+			const user= await Users.findOne({ where: { id }})
 		}
 	)
 );

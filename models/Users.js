@@ -1,5 +1,6 @@
 /* jshint indent: 2 */
 import Sequelize, { Model } from "sequelize";
+import bcrypt from "bcrypt";
 
 export default class Users extends Model {
 	static init(database) {
