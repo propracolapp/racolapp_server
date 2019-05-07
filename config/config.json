@@ -5,8 +5,7 @@
     "password": "racolapp",
     "database": "racolapp",
     "host": "racolappdb.cyjdendimfjc.us-east-2.rds.amazonaws.com",
-    "dialect": "mysql",
-    "ssl": "true"
+    "dialect": "mysql"
   },
   "test": {
     "username": "racolapp",
@@ -14,8 +13,7 @@
     "password": "racolapp",
     "database": "racolapp",
     "host": "racolappdb.cyjdendimfjc.us-east-2.rds.amazonaws.com",
-    "dialect": "mysql",
-    "ssl": "true"
+    "dialect": "mysql"
   },
   "production": {
     "username": "racolapp",
@@ -23,7 +21,6 @@
     "password": "racolapp",
     "database": "racolapp",
     "host": "racolappdb.cyjdendimfjc.us-east-2.rds.amazonaws.com",
-    "dialect": "mysql",
-    "ssl": "true"
+    "dialect": "mysql"
   }
 }

@@ -14,9 +14,9 @@ export const db = new Sequelize(
 	config.password,
 	{
 		host: config.host,
-		dialect: config.dialect,
 		port: config.port,
-		logging: false,
+		dialect: config.dialect,
+		login:console.log,
 		dialectOptions: {
 			ssl: config.ssl
 		},
