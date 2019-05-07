@@ -20,7 +20,7 @@ api.post("/", async (req, res) => {
 		mail: req.body.mail,
 		birthday: req.body.birthday,
 		active: req.body.active,
-		prenium: req.body.type_utilisateur,
+		premium: req.body.premium,
 		img_profile: req.body.img_profile
 	})
 		.then(function(data) {
