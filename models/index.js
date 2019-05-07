@@ -16,10 +16,9 @@ export const db = new Sequelize(
 		host: config.host,
 		dialect: config.dialect,
 		port: config.port,
-		define : {
+		define: {
 			timestramps: false
 		}
-
 	}
 );
 db.authenticate()
@@ -30,7 +29,7 @@ db.authenticate()
 		console.log("error");
 	});
 
-
+	
 Users.init(db);
 
 Events.init(db);
