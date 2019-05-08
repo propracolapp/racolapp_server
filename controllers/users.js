@@ -1,6 +1,7 @@
 import { Router } from "express";
 import Users from "../models/Users";
 import { now } from "moment";
+import { Sequelize } from "sequelize";
 
 const api = Router();
 
@@ -16,6 +17,32 @@ api.get("/", async (req, res) => {
 			res.status(500);
 			res.json({
 				error: err
+			});
+		});
+});
+// api login
+api.get("/login", async (req, res) => {
+	const username = req.body.username;
+	const password = req.body.password;
+	console.log(username, password);
+	await Users.findAll({
+		where: {
+			pseudo: username,
+			password: password,
+			active: 1
+		}
+	})
+		.then(data => {
+		//	console.log(data);
+			res.status(200);
+			res.json({
+				data
+			});
+		})
+		.catch(err => {
+			res.status(500);
+			res.json({
+				error: err.message
 			});
 		});
 });
