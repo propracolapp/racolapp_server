@@ -6,10 +6,11 @@ import { Strategy as JwtStrateg, ExtractJwt } from "passport-jwt";
 passport.use(
 	new LocalStrategy(
 		{
-			usernameField: "nickname",
+			usernameField: "username",
 			passwordField: "password"
 		},
-		(nickname, password, next) => {
+		(username, password, next) => {
+			
 		}
 	)
 );

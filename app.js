@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import api from "./controllers/index";
 import cors from "cors";
-import { db } from './models/index';
+import { db } from "./models/index";
 dotenv.config();
 
 const start = () => {
