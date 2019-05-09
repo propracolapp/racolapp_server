@@ -33,7 +33,7 @@ api.get("/login", async (req, res) => {
 		}
 	})
 		.then(data => {
-		//	console.log(data);
+			//	console.log(data);
 			res.status(200);
 			res.json({
 				data
@@ -65,7 +65,7 @@ api.get("/:id", async (req, res) => {
 });
 // Register users
 api.post("/", async (req, res) => {
-	
+	// const token = jwt.sign(payload, process.env.Token);
 	const createdAt = new now();
 	await Users.create({
 		pseudo: req.body.pseudo,

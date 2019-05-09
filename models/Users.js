@@ -1,6 +1,6 @@
 /* jshint indent: 2 */
 import Sequelize, { Model } from "sequelize";
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt";
 export default class Users extends Model {
 	static init(database) {
 		return super.init(
@@ -26,6 +26,13 @@ export default class Users extends Model {
 						isEmail: { msg: "Email is not valid." }
 					}
 				},
+				password_digest: {
+					type: Sequelize.STRING(255),
+					allowNull: false,
+					validate: {
+						notEmpty: true
+					}
+				},
 				password: {
 					type: Sequelize.VIRTUAL,
 					validate: {
@@ -34,13 +41,6 @@ export default class Users extends Model {
 								throw new Error("Password must have at least 4 characters");
 							}
 						}
-					}
-				},
-				password_digest: {
-					type: Sequelize.STRING(255),
-					allowNull: false,
-					validate: {
-						notEmpty: true
 					}
 				},
 				password_confirmation: {
@@ -85,44 +85,44 @@ export default class Users extends Model {
 					}
 				],
 				hooks: {
-					async beforeValidate(userInstance) {
-						if (userInstance.isNewRecord) {
-							userInstance.password_digest = await userInstance.generateHash();
+					beforeValidate(user) {
+						if (user.isNewRecord) {
+							user.password_digest = user.generateHash();
 						}
 					}
 				},
-				async beforeSave(userInstance) {
-					if (!userInstance.isNewRecord && userInstance.changed("password")) {
-						userInstance.password_digest = await userInstance.generateHash();
+				beforeSave(user) {
+					if (!user.isNewRecord && user.changed("password")) {
+						user.password_digest = user.generateHash();
 					}
 				},
-				async beforeUpdate(userInstance) {
-					if (userInstance.password && userInstance.changed("password")) {
-						userInstance.password_digest = await userInstance.generateHash();
+				beforeUpdate(user) {
+					if (user.password && user.changed("password")) {
+						user.password_digest = user.generateHash();
 					}
 				}
 			}
 		);
 	}
-	async generateHash() {
-	  const SALT_ROUND = 5;
-	  const hash = await bcrypt.hash(this.password, SALT_ROUND);
-	  if (!hash) {
-		throw new Error("Can't hash password");
-	  }
-	  return hash;
+	generateHash() {
+		const SALT_ROUND = 5;
+		const hash = bcrypt.hash(this.password, SALT_ROUND);
+		if (!hash) {
+			throw new Error("Can't hash password");
+		}
+		return hash;
 	}
-  
-	async checkPassword(password) {
-	  return bcrypt.compare(password, this.password_digest);
+
+	checkPassword(password) {
+		return bcrypt.compare(password, this.password_digest);
 	}
-  
+
 	toJSON() {
-	  const values = Object.assign({}, this.get());
-  
-	  delete values.password_digest;
-	  delete values.password;
-	  delete values.password_confirmation;
-	  return values;
+		const values = Object.assign({}, this.get());
+
+		delete values.password_digest;
+		delete values.password;
+		delete values.password_confirmation;
+		return values;
 	}
 }
