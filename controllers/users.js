@@ -65,6 +65,7 @@ api.get("/:id", async (req, res) => {
 });
 // Register users
 api.post("/", async (req, res) => {
+	
 	const createdAt = new now();
 	await Users.create({
 		pseudo: req.body.pseudo,
