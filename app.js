@@ -1,12 +1,12 @@
 import express from "express";
 import dotenv from "dotenv";
+dotenv.config();
 import bodyParser from "body-parser";
 import api from "./controllers/index";
 import cors from "cors";
 import { db as database } from "./models";
 import passport from "passport";
-require("./middlewares/passport");
-dotenv.config();
+import "./middlewares/passport";
 
 const start = () => {
 	try {
@@ -15,7 +15,6 @@ const start = () => {
 		app.use(passport.initialize());
 		app.use(bodyParser.json());
 		app.use(cors());
-
 		app.use(
 			bodyParser.urlencoded({
 				extended: true
