@@ -4,6 +4,7 @@ import map from "./map";
 import events from "./events";
 import TypeEvents from "./typeEvents";
 import Registrations from "../models/Registrations";
+import sendgrid from "./sendgrid";
 
 const api = Router();
 
@@ -23,5 +24,7 @@ api.use("/typeEvents", TypeEvents);
 api.use("/map", map);
 
 api.use("/registrations", Registrations);
+
+api.use("/send", sendgrid);
 
 export default api;
