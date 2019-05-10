@@ -1,24 +1,83 @@
-"use strict";
-module.exports = (sequelize, DataTypes) => {
-	const Events = sequelize.define(
-		"Events",
-		{
-			id: DataTypes.NUMBER,
-			name: DataTypes.STRING,
-			long: DataTypes.STRING,
-			lat: DataTypes.STRING,
-			capacity: DataTypes.STRING,
-			date: DataTypes.DATE,
-			description: DataTypes.STRING,
-			duration: DataTypes.STRING,
-			counterViews: DataTypes.NUMBER,
-			user_id: DataTypes.NUMBER,
-			typeEvent_id: DataTypes.NUMBER
-		},
-		{}
-	);
-	Events.associate = function(models) {
-		// associations can be defined here
-	};
-	return Events;
-};
+import { Model, Sequelize } from "sequelize";
+
+export default class Events extends Model {
+	static init(database) {
+		return super.init(
+			{
+				ID: {
+					type: Sequelize.INTEGER(11),
+					allowNull: false,
+					primaryKey: true,
+					autoIncrement: true
+				},
+				name: {
+					type: Sequelize.STRING(255),
+					allowNull: true
+				},
+				long: {
+					type: Sequelize.STRING(255),
+					allowNull: true
+				},
+				lat: {
+					type: Sequelize.STRING(255),
+					allowNull: true
+				},
+				capacity: {
+					type: Sequelize.INTEGER(11),
+					allowNull: true
+				},
+				date: {
+					type: Sequelize.DATE,
+					allowNull: true
+				},
+				description: {
+					type: Sequelize.STRING(255),
+					allowNull: true
+				},
+				duration: {
+					type: Sequelize.STRING(255),
+					allowNull: true
+				},
+				counterViews: {
+					type: Sequelize.INTEGER(11),
+					allowNull: true
+				},
+				Users_ID: {
+					type: Sequelize.INTEGER(11),
+					allowNull: false,
+					references: {
+						model: "Users",
+						key: "ID"
+					}
+				},
+				TypeEvents_ID: {
+					type: Sequelize.INTEGER(11),
+					allowNull: false,
+					references: {
+						model: "TypeEvents",
+						key: "ID"
+					}
+				},
+				created_at: {
+					type: Sequelize.DATE,
+					allowNull: true
+				},
+				updated_at: {
+					type: Sequelize.DATE,
+					allowNull: true
+				}
+			},
+			{
+				tableName: "Events",
+				sequelize: database,
+				timestamps: false,
+				indexes: [
+					{
+						unique: true,
+						fields: ["ID"]
+					}
+				]
+			}
+		);
+	}
+}

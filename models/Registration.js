@@ -1,16 +1,53 @@
-"use strict";
-module.exports = (sequelize, DataTypes) => {
-	const Registration = sequelize.define(
-		"Registration",
-		{
-			registrated: DataTypes.NUMBER,
-			user_id: DataTypes.NUMBER,
-			events_id: DataTypes.NUMBER
-		},
-		{}
-	);
-	Registration.associate = function(models) {
-		// associations can be defined here
-	};
-	return Registration;
-};
+/* jshint indent: 2 */
+import { Model } from "sequelize";
+import { Sequelize } from "sequelize";
+
+export default class Registrations extends Model {
+	static init(database) {
+		return super.init(
+			{
+				registrated: {
+					type: Sequelize.INTEGER(4),
+					allowNull: true
+				},
+				Users_ID: {
+					type: Sequelize.INTEGER(11),
+					allowNull: false,
+					primaryKey: true,
+					references: {
+						model: "Users",
+						key: "ID"
+					}
+				},
+				Events_ID: {
+					type: Sequelize.INTEGER(11),
+					allowNull: false,
+					primaryKey: true,
+					references: {
+						model: "Events",
+						key: "ID"
+					}
+				},
+				created_at: {
+					type: Sequelize.DATE,
+					allowNull: true
+				},
+				updated_at: {
+					type: Sequelize.DATE,
+					allowNull: true
+				}
+			},
+			{
+				tableName: "Registration",
+				sequelize: database,
+				timestamps: false,
+				indexes: [
+					{
+						unique: true,
+						fields: ["User_ID", "Events_ID", "registrated"]
+					}
+				]
+			}
+		);
+	}
+}

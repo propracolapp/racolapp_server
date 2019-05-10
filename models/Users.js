@@ -1,19 +1,62 @@
-"use strict";
-module.exports = (sequelize, DataTypes) => {
-	const Users = sequelize.define(
-		"Users",
-		{
-			pseudo: DataTypes.STRING,
-			mail: DataTypes.STRING,
-			password: DataTypes.STRING,
-			active: DataTypes.NUMBER,
-			prenium: DataTypes.NUMBER,
-			img_profile: DataTypes.STRING
-		},
-		{}
-	);
-	Users.associate = function(models) {
-		// associations can be defined here
-	};
-	return Users;
-};
+/* jshint indent: 2 */
+import Sequelize, { Model } from "sequelize";
+import bcrypt from "bcrypt";
+
+export default class Users extends Model {
+	static init(database) {
+		return super.init(
+			{
+				ID: {
+					type: Sequelize.INTEGER(11),
+					allowNull: false,
+					primaryKey: true,
+					autoIncrement: true
+				},
+				pseudo: {
+					type: Sequelize.STRING(255),
+					unique: true
+				},
+				mail: {
+					type: Sequelize.STRING(255),
+					allowNull: true,
+					unique: true
+				},
+				password: {
+					type: Sequelize.STRING(255),
+					allowNull: true
+				},
+				active: {
+					type: Sequelize.INTEGER(4),
+					allowNull: true
+				},
+				premium: {
+					type: Sequelize.INTEGER(4),
+					allowNull: true
+				},
+				img_profil: {
+					type: Sequelize.STRING(45),
+					allowNull: true
+				},
+				created_at: {
+					type: Sequelize.DATE,
+					allowNull: true
+				},
+				updated_at: {
+					type: Sequelize.DATE,
+					allowNull: true
+				}
+			},
+			{
+				tableName: "Users",
+				sequelize: database,
+				timestamps: false,
+				indexes: [
+					{
+						unique: true,
+						fields: ["ID"]
+					}
+				]
+			}
+		);
+	}
+}

@@ -15,7 +15,11 @@ export const db = new Sequelize(
 	config.password,
 	{
 		host: config.host,
-		dialect: config.dialect
+		dialect: config.dialect,
+		port: config.port,
+		define: {
+			timestramps: false
+		}
 	}
 );
 db.authenticate()
@@ -26,14 +30,15 @@ db.authenticate()
 		console.log("error");
 	});
 
-// Users.init(db);
-// Events.init(db);
-// TypeEvents.init(db);
-// Registration.init(db);
+	
+Users.init(db);
 
-// Users.belongsToMany(Events, {through: Registration});
-// Events.belongsToMany(Users, {through: Registration});
+Events.init(db);
+TypeEvents.init(db);
+Registration.init(db);
+
+// Users.belongsToMany(Events, { through: Registration });
+// Events.belongsToMany(Users, { through: Registration });
 // TypeEvents.belongsTo(Events);
 // Users.belongsTo(Events);
-
 

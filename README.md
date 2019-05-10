@@ -11,7 +11,7 @@
 
     yarn start // api on localhost:8081
 
-## Project Structur
+## Project Structure
 
     controllers/ – defines your app routes and their logic
     helpers/ – code and functionality to be shared by different parts of the project
