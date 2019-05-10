@@ -4,9 +4,9 @@ dotenv.config();
 import bodyParser from "body-parser";
 import api from "./controllers/index";
 import cors from "cors";
-import { db as database } from "./models";
+import { db } from "./models/index";
 import passport from "passport";
-import "./middlewares/passport";
+dotenv.config();
 
 const start = () => {
 	try {
@@ -15,6 +15,7 @@ const start = () => {
 		app.use(passport.initialize());
 		app.use(bodyParser.json());
 		app.use(cors());
+		app.use(passport.initialize());
 		app.use(
 			bodyParser.urlencoded({
 				extended: true

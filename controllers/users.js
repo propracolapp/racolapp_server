@@ -2,6 +2,7 @@ import { Router } from "express";
 import Users from "../models/Users";
 import jwt from "jsonwebtoken";
 import { now } from "moment";
+import { Sequelize } from "sequelize";
 
 const api = Router();
 
@@ -16,7 +17,33 @@ api.get("/", async (req, res) => {
 		.catch(err => {
 			res.status(500);
 			res.json({
-				error: err.message
+				error: err
+			});
+		});
+});
+// api login
+api.get("/login", async (req, res) => {
+	const username = req.body.username;
+	const password = req.body.password;
+	console.log(username, password);
+	await Users.findAll({
+		where: {
+			pseudo: username,
+			password: password,
+			active: 1
+		}
+	})
+		.then(data => {
+			//	console.log(data);
+			res.status(200);
+			res.json({
+				status : true
+			});
+		})
+		.catch(err => {
+			res.status(500);
+			res.json({
+				status: false
 			});
 		});
 });
@@ -63,8 +90,8 @@ api.post("/", async (req, res) => {
 	}
 });
 // modify user by id
-api.put("/:id", (req, res) => {
-	Users.update(
+api.put("/:id", async (req, res) => {
+	await Users.update(
 		{
 			pseudo: req.body.pseudo,
 			mail: req.body.mail,
@@ -85,6 +112,7 @@ api.put("/:id", (req, res) => {
 			res.json({ error: error.message });
 		});
 });
+
 // delete user by id
 api.delete("/:id", async (req, res) => {
 	await Users.destroy({

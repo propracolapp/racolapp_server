@@ -4,8 +4,8 @@ import mysql from "mysql2";
 
 import Users from "./Users";
 import Events from "./Events";
+import Registrations from "./Registrations";
 import TypeEvents from "./TypeEvents";
-import Registration from "./Registration";
 
 var env = process.env.DB_ENV || "development";
 var config = require("../config/config")[env];
@@ -15,8 +15,12 @@ export const db = new Sequelize(
 	config.password,
 	{
 		host: config.host,
-		dialect: config.dialect,
 		port: config.port,
+		dialect: config.dialect,
+		login:console.log,
+		dialectOptions: {
+			ssl: config.ssl
+		},
 		define: {
 			timestramps: false
 		}
@@ -30,15 +34,13 @@ db.authenticate()
 		console.log("error");
 	});
 
-	
 Users.init(db);
 
 Events.init(db);
 TypeEvents.init(db);
-Registration.init(db);
+Registrations.init(db);
 
 // Users.belongsToMany(Events, { through: Registration });
 // Events.belongsToMany(Users, { through: Registration });
 // TypeEvents.belongsTo(Events);
 // Users.belongsTo(Events);
-

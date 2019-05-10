@@ -1,7 +1,6 @@
 /* jshint indent: 2 */
 import Sequelize, { Model } from "sequelize";
 import bcrypt from "bcrypt";
-
 export default class Users extends Model {
 	static init(database) {
 		return super.init(
@@ -14,16 +13,45 @@ export default class Users extends Model {
 				},
 				pseudo: {
 					type: Sequelize.STRING(255),
-					unique: true
+					unique: {
+						args: true,
+						msg: "pseudo already in use"
+					}
 				},
 				mail: {
 					type: Sequelize.STRING(255),
 					allowNull: true,
-					unique: true
+					unique: true,
+					validate: {
+						isEmail: { msg: "Email is not valid." }
+					}
+				},
+				password_digest: {
+					type: Sequelize.STRING(255),
+					allowNull: false,
+					validate: {
+						notEmpty: true
+					}
 				},
 				password: {
-					type: Sequelize.STRING(255),
-					allowNull: true
+					type: Sequelize.VIRTUAL,
+					validate: {
+						isLongEnough(v) {
+							if (v.length < 4) {
+								throw new Error("Password must have at least 4 characters");
+							}
+						}
+					}
+				},
+				password_confirmation: {
+					type: Sequelize.VIRTUAL,
+					validate: {
+						isEqual(v) {
+							if (v !== this.password) {
+								throw new Error("Password confirmation doesn't match password");
+							}
+						}
+					}
 				},
 				active: {
 					type: Sequelize.INTEGER(4),
@@ -55,8 +83,46 @@ export default class Users extends Model {
 						unique: true,
 						fields: ["ID"]
 					}
-				]
+				],
+				hooks: {
+					beforeValidate(user) {
+						if (user.isNewRecord) {
+							user.password_digest = user.generateHash();
+						}
+					}
+				},
+				beforeSave(user) {
+					if (!user.isNewRecord && user.changed("password")) {
+						user.password_digest = user.generateHash();
+					}
+				},
+				beforeUpdate(user) {
+					if (user.password && user.changed("password")) {
+						user.password_digest = user.generateHash();
+					}
+				}
 			}
 		);
+	}
+	generateHash() {
+		const SALT_ROUND = 5;
+		const hash = bcrypt.hash(this.password, SALT_ROUND);
+		if (!hash) {
+			throw new Error("Can't hash password");
+		}
+		return hash;
+	}
+
+	checkPassword(password) {
+		return bcrypt.compare(password, this.password_digest);
+	}
+
+	toJSON() {
+		const values = Object.assign({}, this.get());
+
+		delete values.password_digest;
+		delete values.password;
+		delete values.password_confirmation;
+		return values;
 	}
 }

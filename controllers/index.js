@@ -4,6 +4,7 @@ import users from "./users";
 import map from "./map";
 import events from "./events";
 import TypeEvents from "./typeEvents";
+import Registrations from "../models/Registrations";
 
 const api = Router();
 
@@ -25,5 +26,7 @@ api.use(
 );
 
 api.use("/map", passport.authenticate("jwt", { session: false }), map);
+
+api.use("/registrations", Registrations);
 
 export default api;
