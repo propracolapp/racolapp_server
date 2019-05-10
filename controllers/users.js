@@ -36,13 +36,13 @@ api.get("/login", async (req, res) => {
 			//	console.log(data);
 			res.status(200);
 			res.json({
-				data
+				status : true
 			});
 		})
 		.catch(err => {
 			res.status(500);
 			res.json({
-				error: err.message
+				status: false
 			});
 		});
 });
