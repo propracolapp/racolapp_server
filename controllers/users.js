@@ -1,5 +1,6 @@
 import { Router } from "express";
 import Users from "../models/Users";
+import jwt from 'jsonwebtoken'
 import { now } from "moment";
 
 const api = Router();
