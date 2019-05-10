@@ -1,15 +1,17 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
-import { Strategy as JwtStrateg, ExtractJwt } from "passport-jwt";
+import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import Users from "../models/Users";
+require("dotenv").config();
 
 passport.use(
 	new LocalStrategy(
 		{
-			usernameField: "username",
-			passwordField: "password"
+			email: "email",
+			password: "password"
 		},
 		async (email, password, next) => {
+			console.log("c'est ici ");
 			const user = await Users.findOne({ where: { email } });
 			if (!user) {
 				return next("User is undefined");
@@ -30,6 +32,7 @@ passport.use(
 		},
 		async (jwtPayload, next) => {
 			try {
+				
 				const user = await Users.findOne({ where: { id: jwtPayload.id } });
 				if (!user) {
 					return next("User doesn't exist");

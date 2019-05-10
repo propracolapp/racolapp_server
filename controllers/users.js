@@ -1,5 +1,6 @@
 import { Router } from "express";
 import Users from "../models/Users";
+import jwt from "jsonwebtoken";
 import { now } from "moment";
 import { Sequelize } from "sequelize";
 
@@ -64,26 +65,29 @@ api.get("/:id", async (req, res) => {
 		});
 });
 // Register users
+
 api.post("/", async (req, res) => {
-	// const token = jwt.sign(payload, process.env.Token);
 	const createdAt = new now();
-	await Users.create({
-		pseudo: req.body.pseudo,
-		mail: req.body.mail,
-		password: req.body.password,
-		active: req.body.active,
-		premium: req.body.premium,
-		img_profil: req.body.img_profil,
-		created_at: createdAt
-	})
-		.then(function(data) {
-			res.status(200);
-			res.json(data.get({ plain: true }));
-		})
-		.catch(function(error) {
-			res.status(500);
-			res.json({ error: error.message });
+	const { pseudo, mail, password, password_confirm } = req.body;
+	try {
+		const user = new Users({
+			pseudo,
+			mail,
+			password,
+			password_confirm,
+			active: 1,
+			premium: 0,
+			img_profil: null,
+			created_at: createdAt
 		});
+		await user.save();
+		const payload = { id: user.id, pseudo, email };
+		const token = jwt.sign(payload, process.env.Token);
+		res.status(201).json({ data: { user }, meta: { token } });
+	} catch (error) {
+		console.log(err.message);
+		res.json({ err: err.message }).status(500);
+	}
 });
 // modify user by id
 api.put("/:id", async (req, res) => {

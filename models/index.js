@@ -1,6 +1,7 @@
 import Sequelize from "sequelize";
 import sequelizeAuto from "sequelize-auto";
 import mysql from "mysql2";
+
 import Users from "./Users";
 import Events from "./Events";
 import Registrations from "./Registrations";
