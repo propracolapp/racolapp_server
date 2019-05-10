@@ -4,13 +4,15 @@ import bodyParser from "body-parser";
 import api from "./controllers/index";
 import cors from "cors";
 import { db as database } from "./models";
+import passport from "passport";
+require("./middlewares/passport");
 dotenv.config();
 
 const start = () => {
 	try {
 		const app = express();
 		let PORT = process.env.PORT || 8081;
-
+		app.use(passport.initialize());
 		app.use(bodyParser.json());
 		app.use(cors());
 
