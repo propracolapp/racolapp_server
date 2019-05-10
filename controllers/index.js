@@ -7,7 +7,7 @@ import TypeEvents from "./typeEvents";
 
 const api = Router();
 
-api.get("/", (req, res) => {
+api.get("/", passport.authenticate( { session: false }), (req, res) => {
 	res.send({
 		name: "racolapp",
 		status: "running"
