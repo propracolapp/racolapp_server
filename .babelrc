@@ -4,9 +4,35 @@
       "@babel/preset-env",
       {
         "targets": {
+          "browsers": [
+            "last 2 versions",
+          ],
           "node": "current"
-        }
+        },
+        "modules": "commonjs"
       }
     ]
-  ]
+  ],
+  "env": {
+    "production": {
+      "plugins": [
+        [
+          {
+            "mode": "wrap",
+            "ignoreFilenames": [
+              "node_modules"
+            ]
+          }
+        ],
+        [
+          {
+            "lodash": {
+              "transform": "lodash/${member}",
+              "preventFullImport": true
+            }
+          }
+        ]
+      ]
+    }
+  }
 }
