@@ -16,17 +16,16 @@ api.get("/", passport.authenticate( { session: false }), (req, res) => {
 	});
 });
 
-api.use("/users", passport.authenticate("jwt", { session: false }), users);
+api.use("/users", users);
 
-api.use("/events", passport.authenticate("jwt", { session: false }), events);
+api.use("/events", events);
 
 api.use(
 	"/typeEvents",
-	passport.authenticate("jwt", { session: false }),
 	TypeEvents
 );
 
-api.use("/map", passport.authenticate("jwt", { session: false }), map);
+api.use("/map",  map);
 
 api.use("/registrations", Registrations);
 
