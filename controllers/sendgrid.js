@@ -1,9 +1,9 @@
 // using Twilio SendGrid's v3 Node.js Library
 // https://github.com/sendgrid/sendgrid-nodejs
-import mail from "sendgrid";
 import { Router } from "express";
 
 const api = Router();
+const mail = require("@sendgrid/mail");
 mail.setApiKey(process.env.SENDGRID_API_KEY);
 
 api.get("/registered", (req, res) => {
@@ -31,5 +31,5 @@ api.get("/registered", (req, res) => {
 			.end();
 	}
 });
-// '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' apres avoir mis ça dans ton fichier .env tu le supprime de la 
+// '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' apres avoir mis ça dans ton fichier .env tu le supprime de la
 export default api;
