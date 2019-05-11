@@ -12,7 +12,6 @@ const start = () => {
 	try {
 		const app = express();
 		let PORT = process.env.PORT || 8081;
-		app.use(passport.initialize());
 		app.use(bodyParser.json());
 		app.use(cors());
 		app.use(passport.initialize());

@@ -9,23 +9,24 @@ import sendgrid from "./sendgrid";
 
 const api = Router();
 
-api.get("/", passport.authenticate( { session: false }), (req, res) => {
+api.get("/", (req, res) => {
 	res.send({
 		name: "racolapp",
 		status: "running"
 	});
 });
 
-api.use("/users", users);
+api.use("/users", passport.authenticate("jwt", { session: false }), users);
 
-api.use("/events", events);
+api.use("/events", passport.authenticate("jwt", { session: false }), events);
 
 api.use(
 	"/typeEvents",
+	passport.authenticate("jwt", { session: false }),
 	TypeEvents
 );
 
-api.use("/map",  map);
+api.use("/map", passport.authenticate("jwt", { session: false }), map);
 
 api.use("/registrations", Registrations);
 

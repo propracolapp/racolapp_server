@@ -4,7 +4,7 @@ import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import Users from "../models/Users";
 require("dotenv").config();
 
-passport.use(
+passport.use("local",
 	new LocalStrategy(
 		{
 			email: "email",
@@ -24,7 +24,7 @@ passport.use(
 	)
 );
 
-passport.use(
+passport.use("jwt",
 	new JwtStrategy(
 		{
 			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
