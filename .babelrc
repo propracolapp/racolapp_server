@@ -4,8 +4,12 @@
       "@babel/preset-env",
       {
         "targets": {
-          "node": true
-        }
+          "browsers": [
+            "last 2 versions",
+          ],
+          "node": "current"
+        },
+        "modules": "commonjs"
       }
     ]
   ],
@@ -15,7 +19,9 @@
         [
           {
             "mode": "wrap",
-            "ignoreFilenames": ["node_modules"]
+            "ignoreFilenames": [
+              "node_modules"
+            ]
           }
         ],
         [
