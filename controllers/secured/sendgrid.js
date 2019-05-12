@@ -1,6 +1,7 @@
 // using Twilio SendGrid's v3 Node.js Library
 // https://github.com/sendgrid/sendgrid-nodejs
 import { Router } from "express";
+import jwt from "jsonwebtoken";
 
 const api = Router();
 const mail = require("@sendgrid/mail");
