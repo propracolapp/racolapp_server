@@ -5,32 +5,7 @@ import jwt from "jsonwebtoken";
 
 const api = Router();
 
-// get events
-api.get("/", async (req, res) => {
-	const data = await Events.findAll();
-	res
-		.json({
-			data
-		})
-		.status(200);
-});
 
-// get event by id
-api.get("/:id", async (req, res) => {
-	const data = await Event.findByPk(req.params.id)
-		.then(data => {
-			res.status(200);
-			res.json({
-				data
-			});
-		})
-		.catch(err => {
-			res.status(500);
-			res.json({
-				err: err.message
-			});
-		});
-});
 // Add user
 api.post("/", async (req, res) => {
 	jwt.verify(req.body.token, process.env.Token, async (err, decoded) => {
