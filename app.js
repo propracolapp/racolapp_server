@@ -19,7 +19,7 @@ const start = () => {
 		app.use(passport.initialize());
 		app.use(
 			bodyParser.urlencoded({
-				extended: true
+				extended: false
 			})
 		);
 		app.use("/", api);

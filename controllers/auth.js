@@ -42,7 +42,7 @@ api.post("/register", async (req, res) => {
 		res.status(201).json({ data: { user }, meta: { token } });
 	} catch (error) {
 		console.log(err.message);
-		res.json({ err: err.message }).status(500);
+		res.json({ err: err.message }).status(400);
 	}
 });
 
