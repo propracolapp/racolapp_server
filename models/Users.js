@@ -43,7 +43,7 @@ export default class Users extends Model {
 						}
 					}
 				},
-				password_confirmation: {
+				password_confirm: {
 					type: Sequelize.VIRTUAL,
 					validate: {
 						isEqual(v) {

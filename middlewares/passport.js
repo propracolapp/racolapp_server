@@ -34,7 +34,7 @@ passport.use(
 		},
 		async (jwtPayload, next) => {
 			try {
-				const user = await Users.findOne({ where: { id: jwtPayload.id } });
+				const user = await Users.findOne({ where: { pseudo: jwtPayload.pseudo } });
 				if (!user) {
 					return next("User doesn't exist");
 				}

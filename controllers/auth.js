@@ -38,7 +38,7 @@ api.post("/register", async (req, res) => {
 			created_at: createdAt
 		});
 		await user.save();
-		const payload = { id: user.id, pseudo, email };
+		const payload = { pseudo, email };
 		const token = jwt.sign(payload, process.env.Token);
 		res.status(201).json({ data: { user }, meta: { token } });
 	} catch (error) {
