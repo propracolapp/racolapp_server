@@ -4,6 +4,7 @@ import passport from "passport";
 import Users from "../models/Users";
 
 const api = Router();
+
 // api login
 api.get("/login", async (req, res) => {
 	passport.authenticate("local", { session: false }, (err, user) => {
@@ -20,8 +21,8 @@ api.get("/login", async (req, res) => {
 		res.status(200).json({ data: { user }, meta: { token } });
 	})(req, res);
 });
-// Register users
 
+// Register users
 api.post("/register", async (req, res) => {
 	const createdAt = new now();
 	const { pseudo, mail, password, password_confirm } = req.body;
