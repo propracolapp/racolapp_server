@@ -6,7 +6,7 @@ import Users from "../models/Users";
 const api = Router();
 
 // api login
-api.get("/login", async (req, res) => {
+api.get("/login",  (req, res) => {
 	passport.authenticate("local", { session: false }, (err, user) => {
 		if (err) {
 			res.status(400).json({
