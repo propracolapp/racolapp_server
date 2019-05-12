@@ -1,5 +1,5 @@
 import { Router } from "express";
-import Registrations from '../models/Registrations';
+import Registrations from '../../models/Registrations';
 
 const api = Router();
 

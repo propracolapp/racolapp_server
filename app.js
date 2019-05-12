@@ -6,6 +6,8 @@ import api from "./controllers/index";
 import cors from "cors";
 import { db } from "./models/index";
 import passport from "passport";
+
+import "./middlewares/passport";
 dotenv.config();
 
 const start = () => {

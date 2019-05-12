@@ -1,5 +1,5 @@
 import { Router } from "express";
-import Events from "../models/Events";
+import Events from "../../models/Events";
 import { now } from "moment";
 
 const api = Router();
