@@ -26,6 +26,7 @@ export default class TypeEvents extends Model {
 			},
 			{
 				tableName: "TypeEvents",
+				underscored: true,
 				sequelize: database,
 				timestamps: false,
 				indexes: [

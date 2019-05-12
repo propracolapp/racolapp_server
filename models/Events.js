@@ -42,7 +42,7 @@ export default class Events extends Model {
 					type: Sequelize.INTEGER(11),
 					allowNull: true
 				},
-				Users_ID: {
+				UserID: {
 					type: Sequelize.INTEGER(11),
 					allowNull: false,
 					references: {
@@ -50,7 +50,7 @@ export default class Events extends Model {
 						key: "ID"
 					}
 				},
-				TypeEvents_ID: {
+				TypeEventsID: {
 					type: Sequelize.INTEGER(11),
 					allowNull: false,
 					references: {
@@ -69,6 +69,7 @@ export default class Events extends Model {
 			},
 			{
 				tableName: "Events",
+				// underscored: true,
 				sequelize: database,
 				timestamps: false,
 				indexes: [
