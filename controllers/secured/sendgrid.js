@@ -32,5 +32,4 @@ api.get("/registered", (req, res) => {
 			.end();
 	}
 });
-// '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' apres avoir mis ça dans ton fichier .env tu le supprime de la
 export default api;
