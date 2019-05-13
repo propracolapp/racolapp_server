@@ -13,7 +13,7 @@ api.get("/", (req, res) => {
 	});
 });
 // get events
-api.get("/events/", async (req, res) => {
+api.get("/events", async (req, res) => {
 	const data = await Events.findAll();
 	res
 		.json({
