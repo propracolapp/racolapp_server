@@ -13,7 +13,7 @@ dotenv.config();
 const start = () => {
 	try {
 		const app = express();
-		let PORT = process.env.PORT || 3600;
+		let PORT = process.env.PORT || 3636;
 		app.use(bodyParser.json());
 		app.use(cors());
 		app.use(passport.initialize());
