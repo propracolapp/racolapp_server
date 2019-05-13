@@ -5,7 +5,6 @@ import jwt from "jsonwebtoken";
 
 const api = Router();
 
-
 // Add user
 api.post("/", async (req, res) => {
 	jwt.verify(req.body.token, process.env.Token, async (err, decoded) => {
@@ -91,6 +90,27 @@ api.delete("/:id", async (req, res) => {
 					res.json(data.get({ plain: true }));
 				})
 				.catch(err => {
+					res.status(500);
+					res.json({ error: err.message });
+				});
+		}
+	});
+});
+
+// modify event by id
+api.get("/userID", async (req, res) => {
+	jwt.verify(req.body.token, process.env.Token, async (err, decoded) => {
+		if (err) {
+			res.status(400).json({ error: "Token error : " + err.message });
+		} else {
+			await Events.findAll(
+				{ where: { ID: req.body.userId }, returning: true, plain: true }
+			)
+				.then(function(data) {
+					res.status(200);
+					res.json(data.get({ plain: true }));
+				})
+				.catch(function(err) {
 					res.status(500);
 					res.json({ error: err.message });
 				});
