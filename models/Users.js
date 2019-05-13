@@ -1,6 +1,7 @@
 /* jshint indent: 2 */
 import Sequelize, { Model } from "sequelize";
 import bcrypt from "bcrypt";
+
 export default class Users extends Model {
 	static init(database) {
 		return super.init(
@@ -28,7 +29,7 @@ export default class Users extends Model {
 				},
 				password_digest: {
 					type: Sequelize.STRING(255),
-					// allowNull: false,
+					allowNull: false,
 					validate: {
 						notEmpty: true
 					}
@@ -81,46 +82,41 @@ export default class Users extends Model {
 				indexes: [
 					{
 						unique: true,
-						fields: ["ID"]
+						fields: ["ID","mail","pseudo"]
 					}
 				],
 				hooks: {
-					beforeValidate(user) {
+					async beforeValidate(user) {
 						if (user.isNewRecord) {
-							user.password_digest = user.generateHash();
+							user.password_digest = await user.generateHash();
+						}
+					},
+					async beforeSave(user) {
+						if (!user.isNewRecord && user.changed("password")) {
+							user.password_digest = await user.generateHash();
+						}
+					},
+					async beforeUpdate(user) {
+						if (user.password && user.changed("password")) {
+							user.password_digest = await user.generateHash();
 						}
 					}
 				},
-				beforeSave(user) {
-					if (!user.isNewRecord && user.changed("password")) {
-						user.password_digest = user.generateHash();
-					}
-				},
-				beforeUpdate(user) {
-					if (user.password && user.changed("password")) {
-						user.password_digest = user.generateHash();
-					}
-				}
 			}
 		);
 	}
-	generateHash() {
+	async generateHash() {
 		const SALT_ROUND = 5;
-		const hash = bcrypt.hash(this.password, SALT_ROUND, (err, hash)=>{
-			if(err) {
-				return err.message;
-			} else {
-				return hash;
-			}
-		});
+		const hash = await bcrypt.hash(this.password, SALT_ROUND)
+		
 		// if (!hash) {
 		// 	throw new Error("Can't hash password");
 		// }
-		// return hash;
+		return hash;
 	}
 
-	checkPassword(password) {
-		return bcrypt.compare(password, this.password_digest);
+	async checkPassword(password) {
+		return await bcrypt.compare(password, this.password_digest);
 	}
 
 	toJSON() {
@@ -128,7 +124,7 @@ export default class Users extends Model {
 
 		delete values.password_digest;
 		delete values.password;
-		delete values.password_confirmation;
+		delete values.password_confirm;
 		return values;
 	}
 }

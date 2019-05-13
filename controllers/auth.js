@@ -8,8 +8,8 @@ import {now} from "moment";
 const api = Router();
 
 // api login
-api.get("/login",  (req, res) => {
-	passport.authenticate("jwt", { session: false }, (err, user) => {
+api.post("/login",  (req, res) => {
+	passport.authenticate("local", { session: false }, (err, user) => {
 		if (err) {
 			res.status(400).json({
 				error: { message: err }
@@ -28,6 +28,7 @@ api.get("/login",  (req, res) => {
 api.post("/register", async (req, res) => {
 	const createdAt = new now();
 	const { pseudo, mail, password, password_confirm } = req.body;
+	
 	try {
 		const user = new Users({
 			pseudo,
@@ -39,13 +40,15 @@ api.post("/register", async (req, res) => {
 			img_profil: null,
 			created_at: createdAt
 		});
+		console.log(user);
+		
 		await user.save();
-		const payload = { pseudo, passport };
+		const payload = { pseudo, password };
 		const token = jwt.sign(payload, process.env.Token);
 		res.status(201).json({ data: { user }, meta: { token } });
 	} catch (error) {
 		console.log(error.message);
-		res.json({ err: error.message }).status(400);
+		res.json({ error: error.message }).status(400);
 	}
 });
 

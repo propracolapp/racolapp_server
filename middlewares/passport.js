@@ -4,16 +4,16 @@ import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import Users from "../models/Users";
 require("dotenv").config();
 
-passport.use(
-	"local",
+passport.use("local",
 	new LocalStrategy(
 		{
-			pseudo: "username",
-			password: "password",
-			active: 1
+			usernameField: "pseudo",
+			passwordField: "password"
+			// active: 1
 		},
-		async (pseudo, password, active, next) => {
-			const user = await Users.findAll({ where: { pseudo, active: 1 } });
+		async (pseudo, password, next) => {
+			const user = await Users.findOne({ where: { pseudo } });
+			console.log(password);		
 			if (!user) {
 				return next("User is undefined");
 			}
@@ -25,8 +25,7 @@ passport.use(
 	)
 );
 
-passport.use(
-	"jwt",
+passport.use("jwt",
 	new JwtStrategy(
 		{
 			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
