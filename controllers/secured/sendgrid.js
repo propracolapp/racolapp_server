@@ -7,10 +7,10 @@ const api = Router();
 api.post("/register", async (req, res) => {
 	const data = {
 		from: "ibrahima.dansoko@outlook.com", // don't change this address unless you authorize it on mailgun settings
-		to: `ibrahima.dansoko@outlook.com`,
-		subject: "Inscription",
+		to: `${req.body.mail}`,
+		subject: "Alert next Racoler on the App!",
 		text:
-			"Bienvenue dans la team Racolapp, votre inscription a bien été prise en compte."
+			`Hey, ${req.body.mail} just joined the Racolapp team! Keep up the good work :D`
 	};
 	console.log(process.env.MAILGUN_API_KEY);
 	await request
