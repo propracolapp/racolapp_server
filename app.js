@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import api from "./controllers/index";
 import cors from "cors";
 import { db } from "./models/index";
+import "./models/data";
 // import passport from "passport";
 
 import "./middlewares/passport";
