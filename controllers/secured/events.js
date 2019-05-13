@@ -103,6 +103,7 @@ api.get("/userID", async (req, res) => {
 		if (err) {
 			res.status(400).json({ error: "Token error : " + err.message });
 		} else {
+			console.log(req.body)
 			await Events.findAll(
 				{ where: { ID: req.body.userId }, returning: true, plain: true }
 			)
