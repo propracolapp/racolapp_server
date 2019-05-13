@@ -16,8 +16,8 @@ api.post("/login",  (req, res) => {
 			});
 		}
 
-		const { pseudo, passport } = user;
-		const payload = { pseudo, passport };
+		const { pseudo, password } = user;
+		const payload = { pseudo, password };
 		const token = jwt.sign(payload, process.env.Token);
 
 		res.status(200).json({ data: { user }, meta: { token } });

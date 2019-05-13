@@ -2,34 +2,34 @@
 // https://github.com/sendgrid/sendgrid-nodejs
 import { Router } from "express";
 import jwt from "jsonwebtoken";
-
 const api = Router();
 const mail = require("@sendgrid/mail");
-mail.setApiKey(process.env.SENDGRID_API_KEY);
+const ai =
+	"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";
+mail.setApiKey(ai);
+const Sendgrid = require("sendgrid")(ai);
 
-api.get("/registered", (req, res) => {
+api.post("/registered", async (req, res) => {
 	const msg = {
-		to: `${req.body.email}`,
-		from: "contact@racolapp.com",
-		subject: "Inscription success",
-		text: "...",
-		html: "<strong>Vous avez été bien inscript</strong>"
+		to: `ibrahima.dansoko@outlook.com`,
+		from: "ibrahima.dansoko@outlook.com",
+		subject: "Inscription",
+		text:
+			"Bienvenue dans la team Racolapp, votre inscription a bien été prise en compte.",
+		html:
+			"<strong> Bienvenue dans la team Racolapp, votre inscription a bien été prise en compte. </strong>"
 	};
-	mail.send(msg);
-	if (res.status === 200) {
-		res
-			.json({
-				text: msg.text
-			})
-			.status(200)
-			.end();
-	} else {
-		res
-			.status(500)
-			.json({
-				error: "error"
-			})
-			.end();
-	}
+	await mail
+		.send(msg)
+		.then(data => {
+			console.log(data);
+			return data;
+		})
+		.catch(err => {
+			console.log(err);
+			return err.message;
+		});
+	res.json({ text: msg.text }).status(200);
 });
+
 export default api;
