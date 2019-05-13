@@ -1,35 +1,58 @@
 // using Twilio SendGrid's v3 Node.js Library
 // https://github.com/sendgrid/sendgrid-nodejs
 import { Router } from "express";
-import jwt from "jsonwebtoken";
+const request = require("request");
 const api = Router();
-const mail = require("@sendgrid/mail");
-const ai =
-	"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";
-mail.setApiKey(ai);
-const Sendgrid = require("sendgrid")(ai);
 
-api.post("/registered", async (req, res) => {
-	const msg = {
+api.post("/register", async (req, res) => {
+	const data = {
+		from: "ibrahima.dansoko@outlook.com", // don't change this address unless you authorize it on mailgun settings
 		to: `ibrahima.dansoko@outlook.com`,
-		from: "ibrahima.dansoko@outlook.com",
 		subject: "Inscription",
 		text:
-			"Bienvenue dans la team Racolapp, votre inscription a bien été prise en compte.",
-		html:
-			"<strong> Bienvenue dans la team Racolapp, votre inscription a bien été prise en compte. </strong>"
+			"Bienvenue dans la team Racolapp, votre inscription a bien été prise en compte."
 	};
-	await mail
-		.send(msg)
-		.then(data => {
-			console.log(data);
-			return data;
-		})
-		.catch(err => {
-			console.log(err);
-			return err.message;
-		});
-	res.json({ text: msg.text }).status(200);
+	console.log(process.env.MAILGUN_API_KEY);
+	await request
+		.post(
+			{
+				url:
+					"https://api.mailgun.net/v3/sandboxf3a77c67a06a4cb6aa24677eda52a6b3.mailgun.org/messages",
+				form: data
+			},
+			(error, response, body) => {
+				const result = {
+					error: error,
+					status: response && response.statusCode,
+					body: body
+				};
+				res.send(result);
+			}
+		)
+		.auth("api", `${process.env.MAILGUN_API_KEY}`);
 });
+
+// api.post("/registered", async (req, res) => {
+// 	const msg = {
+// 		to: `ibrahima.dansoko@outlook.com`,
+// 		from: "ibrahima.dansoko@outlook.com",
+// 		subject: "Inscription",
+// 		text:
+// 			"Bienvenue dans la team Racolapp, votre inscription a bien été prise en compte.",
+// 		html:
+// 			"<strong> Bienvenue dans la team Racolapp, votre inscription a bien été prise en compte. </strong>"
+// 	};
+// 	await mail
+// 		.send(msg)
+// 		.then(data => {
+// 			console.log(data);
+// 			return data;
+// 		})
+// 		.catch(err => {
+// 			console.log(err);
+// 			return err.message;
+// 		});
+// 	res.json({ text: msg.text }).status(200);
+// });
 
 export default api;
