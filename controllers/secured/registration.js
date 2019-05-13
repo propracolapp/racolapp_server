@@ -3,7 +3,23 @@ import Registrations from "../../models/Registrations";
 import jwt from "jsonwebtoken";
 
 const api = Router();
-
+api.get("/registrations/:userID", async (req, res) => {
+	jwt.verify(req.body.token, process.env.Token, async (err, decoded) => {
+		if (err) {
+			res.status(400).json({ error: "Token error : " + err.message });
+		} else {
+			await Registrations.findAll({ where: { UserID: req.params.userID } })
+				.then(function(data) {
+					console.log(req.body);
+					res.json({ data }).status(200);
+				})
+				.catch(function(err) {
+					res.status(500);
+					res.json({ error: err.message });
+				});
+		}
+	});
+});
 api.get("/", async (req, res) => {
 	await Registrations.findAll()
 		.then(data => {
