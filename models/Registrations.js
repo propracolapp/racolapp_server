@@ -10,7 +10,7 @@ export default class Registrations extends Model {
 					allowNull: false,
 					primaryKey: true
 				},
-				UsersID: {
+				UserID: {
 					type: Sequelize.INTEGER(11),
 					allowNull: false,
 					primaryKey: true,
@@ -19,7 +19,7 @@ export default class Registrations extends Model {
 						key: "ID"
 					}
 				},
-				EventsID: {
+				EventID: {
 					type: Sequelize.INTEGER(11),
 					allowNull: false,
 					primaryKey: true,

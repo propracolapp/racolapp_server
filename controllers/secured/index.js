@@ -5,19 +5,21 @@ import events from "./events";
 import TypeEvents from "./typeEvents";
 import Registrations from "./registration";
 import sendgrid from "./sendgrid";
+import passport from "passport";
+
 
 const api = Router();
 
-api.use("/users", users);
+api.use("/users", passport.authenticate("jwt", { session: false }), users);
 
-api.use("/events", events);
+api.use("/events", passport.authenticate("jwt", { session: false }), events);
 
-api.use("/typeEvents", TypeEvents);
+api.use("/typeEvents", passport.authenticate("jwt", { session: false }), TypeEvents);
 
-api.use("/map", map);
+api.use("/map", passport.authenticate("jwt", { session: false }), map);
 
-api.use("/registrations", Registrations);
+api.use("/registrations", passport.authenticate("jwt", { session: false }), Registrations);
 
-api.use("/send", sendgrid);
+api.use("/send",sendgrid);
 
 export default api;

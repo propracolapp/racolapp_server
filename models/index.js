@@ -38,9 +38,9 @@ Events.init(db);
 TypeEvents.init(db);
 Registrations.init(db);
 
-Users.belongsTo(Events);
+// Users.belongsTo(Events);
 Events.belongsTo(Users);
 Users.belongsToMany(Events, { through: Registrations });
-Events.belongsToMany(Users, { through: Registrations });
+// Events.belongsToMany(Users, { through: Registrations });
 // Events.belongsTo(TypeEvents);
 TypeEvents.belongsTo(Events);

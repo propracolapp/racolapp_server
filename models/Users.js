@@ -28,7 +28,7 @@ export default class Users extends Model {
 				},
 				password_digest: {
 					type: Sequelize.STRING(255),
-					allowNull: false,
+					// allowNull: false,
 					validate: {
 						notEmpty: true
 					}
@@ -77,7 +77,6 @@ export default class Users extends Model {
 			{
 				tableName: "Users",
 				sequelize: database,
-				underscored: true,
 				timestamps: false,
 				indexes: [
 					{
@@ -107,11 +106,17 @@ export default class Users extends Model {
 	}
 	generateHash() {
 		const SALT_ROUND = 5;
-		const hash = bcrypt.hash(this.password, SALT_ROUND);
-		if (!hash) {
-			throw new Error("Can't hash password");
-		}
-		return hash;
+		const hash = bcrypt.hash(this.password, SALT_ROUND, (err, hash)=>{
+			if(err) {
+				return err.message;
+			} else {
+				return hash;
+			}
+		});
+		// if (!hash) {
+		// 	throw new Error("Can't hash password");
+		// }
+		// return hash;
 	}
 
 	checkPassword(password) {

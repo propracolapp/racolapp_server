@@ -2,12 +2,14 @@ import { Router } from "express";
 import jwt from "jsonwebtoken";
 import passport from "passport";
 import Users from "../models/Users";
+import {now} from "moment";
+
 
 const api = Router();
 
 // api login
 api.get("/login",  (req, res) => {
-	passport.authenticate("local", { session: false }, (err, user) => {
+	passport.authenticate("jwt", { session: false }, (err, user) => {
 		if (err) {
 			res.status(400).json({
 				error: { message: err }
@@ -15,7 +17,7 @@ api.get("/login",  (req, res) => {
 		}
 
 		const { pseudo, passport } = user;
-		const payload = { id, pseudo, passport };
+		const payload = { pseudo, passport };
 		const token = jwt.sign(payload, process.env.Token);
 
 		res.status(200).json({ data: { user }, meta: { token } });
@@ -38,12 +40,12 @@ api.post("/register", async (req, res) => {
 			created_at: createdAt
 		});
 		await user.save();
-		const payload = { pseudo, email };
+		const payload = { pseudo, passport };
 		const token = jwt.sign(payload, process.env.Token);
 		res.status(201).json({ data: { user }, meta: { token } });
 	} catch (error) {
-		console.log(err.message);
-		res.json({ err: err.message }).status(400);
+		console.log(error.message);
+		res.json({ err: error.message }).status(400);
 	}
 });
 

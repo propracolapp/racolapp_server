@@ -39,7 +39,7 @@ api.get("/events/:id", async (req, res) => {
 		});
 });
 
-api.use("/", passport.authenticate("jwt", { session: false }), secured);
+api.use("/", secured);
 api.use("/auth", auth);
 
 export default api;
