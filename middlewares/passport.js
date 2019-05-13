@@ -13,7 +13,7 @@ passport.use(
 			active: 1
 		},
 		async (pseudo, password, active, next) => {
-			const user = await Users.findOne({ where: { pseudo, active: 1 } });
+			const user = await Users.findAll({ where: { pseudo, active: 1 } });
 			if (!user) {
 				return next("User is undefined");
 			}
