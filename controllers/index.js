@@ -1,6 +1,6 @@
 import { Router } from "express";
-import passport from "passport";
-import auth from "./auth";
+// import passport from "passport";
+ import auth from "./auth";
 import secured from "./secured";
 import Events from "../models/Events";
 
@@ -39,7 +39,7 @@ api.get("/events/:id", async (req, res) => {
 		});
 });
 
-api.use("/", passport.authenticate("jwt", { session: false }), secured);
+api.use("/",  secured);
 api.use("/auth", auth);
 
 export default api;

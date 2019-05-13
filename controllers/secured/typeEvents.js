@@ -22,10 +22,10 @@ api.get("/", async (req, res) => {
 });
 
 api.post("/", async (req, res) => {
-	jwt.verify(req.body.token, process.env.Token, async (err, decoded) => {
-		if (err) {
-			res.status(400).json({ error: "Token error : " + err.message });
-		} else {
+	// jwt.verify(req.body.token, process.env.Token, async (err, decoded) => {
+	// 	if (err) {
+	// 		res.status(400).json({ error: "Token error : " + err.message });
+	// 	} else {
 			const createdAt = new now();
 			await TypeEvents.create(
 				{
@@ -42,15 +42,15 @@ api.post("/", async (req, res) => {
 					res.status(500);
 					res.json({ error: error.message });
 				});
-		}
-	});
+	// 	}
+	// });
 });
 
 api.delete("/:id", async (req, res) => {
-	jwt.verify(req.body.token, process.env.Token, async (err, decoded) => {
-		if (err) {
-			res.status(400).json({ error: "Token error : " + err.message });
-		} else {
+	// jwt.verify(req.body.token, process.env.Token, async (err, decoded) => {
+	// 	if (err) {
+	// 		res.status(400).json({ error: "Token error : " + err.message });
+	// 	} else {
 			await TypeEvents.destroy({
 				where: { ID: req.params.id }
 			})
@@ -62,15 +62,15 @@ api.delete("/:id", async (req, res) => {
 					res.status(500);
 					res.json({ error: err.message });
 				});
-		}
-	});
+	// 	}
+	// });
 });
 
 api.put("/:id", async (req, res) => {
-	jwt.verify(req.body.token, process.env.Token, async (err, decoded) => {
-		if (err) {
-			res.status(400).json({ error: "Token error : " + err.message });
-		} else {
+	// jwt.verify(req.body.token, process.env.Token, async (err, decoded) => {
+	// 	if (err) {
+	// 		res.status(400).json({ error: "Token error : " + err.message });
+	// 	} else {
 			await TypeEvents.update(
 				{
 					name: req.body.name,
@@ -86,8 +86,8 @@ api.put("/:id", async (req, res) => {
 					res.status(500);
 					res.json({ error: error.message });
 				});
-		}
-	});
+	// 	}
+	// });
 });
 
 export default api;

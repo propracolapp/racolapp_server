@@ -38,10 +38,10 @@ api.get("/:id", async (req, res) => {
 
 // modify user by id
 api.put("/:id", async (req, res) => {
-	jwt.verify(req.body.token, process.env.Token, async (err, decoded) => {
-		if (err) {
-			res.status(400).json({ error: "Token error : " + err.message });
-		} else {
+	// jwt.verify(req.body.token, process.env.Token, async (err, decoded) => {
+	// 	if (err) {
+	// 		res.status(400).json({ error: "Token error : " + err.message });
+	// 	} else {
 			await Users.update(
 				{
 					pseudo: req.body.pseudo,
@@ -62,16 +62,16 @@ api.put("/:id", async (req, res) => {
 					res.status(500);
 					res.json({ error: error.message });
 				});
-		}
-	});
+	// 	}
+	// });
 });
 
 // delete user by id
 api.delete("/:id", async (req, res) => {
-	jwt.verify(req.body.token, process.env.Token, async (err, decoded) => {
-		if (err) {
-			res.status(400).json({ error: "Token invalid " + err.message });
-		} else {
+	// jwt.verify(req.body.token, process.env.Token, async (err, decoded) => {
+	// 	if (err) {
+	// 		res.status(400).json({ error: "Token invalid " + err.message });
+	// 	} else {
 			await Users.destroy({
 				where: { ID: req.params.id }
 			})
@@ -83,7 +83,7 @@ api.delete("/:id", async (req, res) => {
 					res.status(500);
 					res.json({ error: err.message });
 				});
-		}
-	});
+	// 	}
+	// });
 });
 export default api;

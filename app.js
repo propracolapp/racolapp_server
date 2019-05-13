@@ -5,7 +5,7 @@ import bodyParser from "body-parser";
 import api from "./controllers/index";
 import cors from "cors";
 import { db } from "./models/index";
-import passport from "passport";
+// import passport from "passport";
 
 import "./middlewares/passport";
 dotenv.config();
@@ -16,7 +16,7 @@ const start = () => {
 		let PORT = process.env.PORT || 3636;
 		app.use(bodyParser.json());
 		app.use(cors());
-		app.use(passport.initialize());
+		// app.use(passport.initialize());
 		app.use(
 			bodyParser.urlencoded({
 				extended: false

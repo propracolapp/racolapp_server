@@ -77,7 +77,7 @@ export default class Users extends Model {
 			{
 				tableName: "Users",
 				sequelize: database,
-				underscored: true,
+				// underscored: true,
 				timestamps: false,
 				indexes: [
 					{
