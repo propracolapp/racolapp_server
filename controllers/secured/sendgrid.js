@@ -6,7 +6,7 @@ const api = Router();
 
 api.post("/register", async (req, res) => {
 	const data = {
-		from: "ibrahima.dansoko@outlook.com", // don't change this address unless you authorize it on mailgun settings
+		from: "steevefeno1@gmail.com", // don't change this address unless you authorize it on mailgun settings
 		to: `${req.body.mail}`,
 		subject: "Alert next Racoler on the App!",
 		text:
