@@ -3,7 +3,7 @@ import Registrations from "../../models/Registrations";
 import jwt from "jsonwebtoken";
 
 const api = Router();
-api.get("/registrations/:userID", async (req, res) => {
+api.get("/userID/:userID", async (req, res) => {
 	jwt.verify(req.body.token, process.env.Token, async (err, decoded) => {
 		if (err) {
 			res.status(400).json({ error: "Token error : " + err.message });
