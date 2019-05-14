@@ -44,9 +44,9 @@ api.post("/", async (req, res) => {
 			const createdAt = new now();
 			await Registrations.create(
 				{
-					registrated: req.body.registrated,
-					Users_ID: req.body.Users_ID,
-					Events_ID: req.body.Events_ID,
+					registrated: 1,
+					Users_ID: req.body.usersID,
+					Events_ID: req.body.eventsID,
 					created_at: createdAt
 				},
 				{ where: { ID: req.body.id }, returning: true, plain: true }
