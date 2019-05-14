@@ -37,7 +37,7 @@ api.get("/", async (req, res) => {
 });
 
 api.post("/", async (req, res) => {
-	jwt.verify(req.body.token, process.env.Token, async (err, decoded) => {
+	jwt.verify(req.headers.token, process.env.Token, async (err, decoded) => {
 		if (err) {
 			res.status(400).json({ error: "Token error : " + err.message });
 		} else {
