@@ -1,13 +1,10 @@
 import { Router } from "express";
 import Registrations from "../../models/Registrations";
 import jwt from "jsonwebtoken";
-
+import verifyToken from "../verifyToken"
 const api = Router();
-api.get("/userID/:userID", async (req, res) => {
-	jwt.verify(req.body.token, process.env.Token, async (err, decoded) => {
-		if (err) {
-			res.status(400).json({ error: "Token error : " + err.message });
-		} else {
+api.get("/userID/:userID", verifyToken ,async (req, res) => {
+	
 			await Registrations.findAll({ where: { UserID: req.params.userID } })
 				.then(function(data) {
 					console.log(req.body);
@@ -17,8 +14,6 @@ api.get("/userID/:userID", async (req, res) => {
 					res.status(500);
 					res.json({ error: err.message });
 				});
-		}
-	});
 });
 api.get("/", async (req, res) => {
 	await Registrations.findAll()
@@ -37,7 +32,7 @@ api.get("/", async (req, res) => {
 });
 
 api.post("/", async (req, res) => {
-	jwt.verify(req.headers.token, process.env.Token, async (err, decoded) => {
+	jwt.verify(verifyToken, process.env.Token, async (err, decoded) => {
 		if (err) {
 			res.status(400).json({ error: "Token error : " + err.message });
 		} else {
