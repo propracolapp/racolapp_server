@@ -35,7 +35,7 @@ passport.use("jwt",
 			try {
 				const user = await Users.findOne({ where: { pseudo: jwtPayload.pseudo } });
 				if (!user) {
-					return next("User doesn't exist");
+					return next("Users doesn't exist");
 				}
 				return next(false, user);
 			} catch (err) {
