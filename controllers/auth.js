@@ -2,6 +2,7 @@ import { Router } from "express";
 import jwt from "jsonwebtoken";
 import passport from "passport";
 import Users from "../models/Users";
+const request = require("request");
 import { now } from "moment";
 import sgMail from "@sendgrid/mail";
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -51,6 +52,32 @@ api.post("/register", async (req, res) => {
 			html:
 				"<strong> Bienvenue dans la team Racolapp, votre inscription a bien été prise en compte. </strong>"
 		};
+		const data = {
+			from: "steevefeno1@gmail.com", // don't change this address unless you authorize it on mailgun settings
+			to: `${req.body.mail}`,
+			subject: "Alert next Racoler on the App!",
+			text: `Hey, ${
+				req.body.mail
+			} just joined the Racolapp team! Keep up the good work :D`
+		};
+		console.log(process.env.MAILGUN_API_KEY);
+		await request
+			.post(
+				{
+					url:
+						"https://api.mailgun.net/v3/sandboxf3a77c67a06a4cb6aa24677eda52a6b3.mailgun.org/messages",
+					form: data
+				},
+				(error, response, body) => {
+					const result = {
+						error: error,
+						status: response && response.statusCode,
+						body: body
+					};
+					res.send(result);
+				}
+			)
+			.auth("api", `${process.env.MAILGUN_API_KEY}`);
 		const payload = { pseudo, password };
 		const token = jwt.sign(payload, process.env.Token);
 		sgMail.send(msg);
