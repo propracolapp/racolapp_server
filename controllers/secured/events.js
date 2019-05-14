@@ -28,10 +28,10 @@ api.post("/", verifyToken, async (req, res) => {
 			capacity: req.body.capacity,
 			date: req.body.date,
 			description: req.body.description,
-			duration: req.body.description,
+			duration: req.body.duration,
 			counterViews: req.body.counterViews,
-			Users_ID: req.body.Users_ID,
-			TypeEvents_ID: req.body.TypeEvents_ID,
+			Users_ID: req.body.userID,
+			TypeEvents_ID: req.body.typeEventsID,
 			created_at: createdAt
 		},
 		{ where: { ID: req.body.id }, returning: true, plain: true }
