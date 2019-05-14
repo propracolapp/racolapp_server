@@ -29,8 +29,8 @@ api.post("/", verifyToken, async (req, res) => {
 		description: req.body.description,
 		duration: req.body.duration,
 		counterViews: req.body.counterViews,
-		Users_ID: req.body.userID,
-		TypeEvents_ID: req.body.typeEventsID,
+		UsersID: req.body.userID,
+		TypeEventsID: req.body.typeEventsID,
 		created_at: createdAt
 	});
 	await event
