@@ -32,22 +32,23 @@ api.get("/", async (req, res) => {
 
 api.post("/", verifyToken, async (req, res) => {
 	const createdAt = new now();
-	await Registrations.create(
-		{
-			registrated: 1,
-			Users_ID: req.body.usersID,
-			Events_ID: req.body.eventsID,
-			created_at: createdAt
-		},
-		{ where: { ID: req.body.id }, returning: true, plain: true }
-	)
+	const register = new Registrations({
+		registrated: 1,
+		UserID: req.body.userID,
+		EventID: req.body.eventID,
+		created_at: createdAt
+	});
+	await register
+		.save()
 		.then(function(data) {
 			res.status(200);
 			res.json(data.get({ plain: true }));
 		})
-		.catch(function(error) {
+		.catch(function(err) {
 			res.status(500);
-			res.json({ error: error.message });
+			res.json({
+				error: err.message
+			});
 		});
 });
 
