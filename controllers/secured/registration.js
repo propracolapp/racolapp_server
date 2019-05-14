@@ -36,7 +36,7 @@ api.post("/", verifyToken, async (req, res) => {
 		registrated: 1,
 		UserID: req.body.userID,
 		EventID: req.body.eventID,
-		created_at: createdAt
+		created_at: ""
 	});
 	await register
 		.save()
