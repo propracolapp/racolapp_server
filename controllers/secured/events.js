@@ -20,22 +20,21 @@ api.get("/userID/:userID", verifyToken, async (req, res) => {
 // Add user
 api.post("/", verifyToken, async (req, res) => {
 	const createdAt = new now();
-	await Events.create(
-		{
-			name: req.body.name,
-			long: req.body.long,
-			lat: req.body.lat,
-			capacity: req.body.capacity,
-			date: req.body.date,
-			description: req.body.description,
-			duration: req.body.duration,
-			counterViews: req.body.counterViews,
-			Users_ID: req.body.userID,
-			TypeEvents_ID: req.body.typeEventsID,
-			created_at: createdAt
-		},
-		{ where: { ID: req.body.id }, returning: true, plain: true }
-	)
+	const event = new Event({
+		name: req.body.name,
+		long: req.body.long,
+		lat: req.body.lat,
+		capacity: req.body.capacity,
+		date: req.body.date,
+		description: req.body.description,
+		duration: req.body.duration,
+		counterViews: req.body.counterViews,
+		Users_ID: req.body.userID,
+		TypeEvents_ID: req.body.typeEventsID,
+		created_at: createdAt
+	});
+	await event
+		.save()
 		.then(function(data) {
 			res.status(200);
 			res.json(data.get({ plain: true }));

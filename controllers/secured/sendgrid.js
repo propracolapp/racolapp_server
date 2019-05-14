@@ -9,8 +9,9 @@ api.post("/register", async (req, res) => {
 		from: "steevefeno1@gmail.com", // don't change this address unless you authorize it on mailgun settings
 		to: `${req.body.mail}`,
 		subject: "Alert next Racoler on the App!",
-		text:
-			`Hey, ${req.body.mail} just joined the Racolapp team! Keep up the good work :D`
+		text: `Hey, ${
+			req.body.mail
+		} just joined the Racolapp team! Keep up the good work :D`
 	};
 	console.log(process.env.MAILGUN_API_KEY);
 	await request
