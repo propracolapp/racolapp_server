@@ -19,7 +19,7 @@ api.get("/userID/:userID", verifyToken, async (req, res) => {
 });
 // Add user
 api.post("/", verifyToken, async (req, res) => {
-	const createdAt = new now();
+	const createdAt = now();
 	const {
 		name,
 		long,
@@ -43,7 +43,7 @@ api.post("/", verifyToken, async (req, res) => {
 		counterViews: counterViews,
 		UserID: userID,
 		TypeEventsID: typeEventsID,
-		created_at: createdAt
+		created_at: ""
 	});
 	console.log("save");
 	console.log(
