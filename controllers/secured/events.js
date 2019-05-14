@@ -20,7 +20,7 @@ api.get("/userID/:userID", verifyToken, async (req, res) => {
 // Add user
 api.post("/", verifyToken, async (req, res) => {
 	const createdAt = new now();
-	const event = new Event({
+	const event = new Events({
 		name: req.body.name,
 		long: req.body.long,
 		lat: req.body.lat,
