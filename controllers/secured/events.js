@@ -29,7 +29,7 @@ api.post("/", verifyToken, async (req, res) => {
 		description: req.body.description,
 		duration: req.body.duration,
 		counterViews: req.body.counterViews,
-		UsersID: req.body.userID,
+		UserID: req.body.userID,
 		TypeEventsID: req.body.typeEventsID,
 		created_at: createdAt
 	});
