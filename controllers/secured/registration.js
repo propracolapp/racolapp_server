@@ -2,6 +2,7 @@ import { Router } from "express";
 import Registrations from "../../models/Registrations";
 import jwt from "jsonwebtoken";
 import verifyToken from "../verifyToken";
+import { now } from "moment";
 const api = Router();
 api.get("/userID/:userID", verifyToken, async (req, res) => {
 	await Registrations.findAll({ where: { UserID: req.params.userID } })
@@ -31,7 +32,7 @@ api.get("/", async (req, res) => {
 });
 
 api.post("/", verifyToken, async (req, res) => {
-	const createdAt = new now();
+	//	const createdAt = new now();
 	const register = new Registrations({
 		registrated: 1,
 		UserID: req.body.userID,
