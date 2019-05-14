@@ -2,7 +2,7 @@ import { Router } from "express";
 import TypeEvents from "../../models/TypeEvents";
 import { now } from "moment";
 import jwt from "jsonwebtoken";
-
+import verifyToken from "../verifyToken";
 const api = Router();
 
 api.get("/", async (req, res) => {
@@ -21,11 +21,7 @@ api.get("/", async (req, res) => {
 		});
 });
 
-api.post("/", async (req, res) => {
-	jwt.verify(req.body.token, process.env.Token, async (err, decoded) => {
-		if (err) {
-			res.status(400).json({ error: "Token error : " + err.message });
-		} else {
+api.post("/",verifyToken, async (req, res) => {
 			const createdAt = new now();
 			await TypeEvents.create(
 				{
@@ -42,15 +38,9 @@ api.post("/", async (req, res) => {
 					res.status(500);
 					res.json({ error: error.message });
 				});
-		}
-	});
 });
 
-api.delete("/:id", async (req, res) => {
-	jwt.verify(req.body.token, process.env.Token, async (err, decoded) => {
-		if (err) {
-			res.status(400).json({ error: "Token error : " + err.message });
-		} else {
+api.delete("/:id", verifyToken,async (req, res) => {
 			await TypeEvents.destroy({
 				where: { ID: req.params.id }
 			})
@@ -62,15 +52,10 @@ api.delete("/:id", async (req, res) => {
 					res.status(500);
 					res.json({ error: err.message });
 				});
-		}
-	});
 });
 
-api.put("/:id", async (req, res) => {
-	jwt.verify(req.body.token, process.env.Token, async (err, decoded) => {
-		if (err) {
-			res.status(400).json({ error: "Token error : " + err.message });
-		} else {
+api.put("/:id", verifyToken,async (req, res) => {
+
 			await TypeEvents.update(
 				{
 					name: req.body.name,
@@ -86,8 +71,6 @@ api.put("/:id", async (req, res) => {
 					res.status(500);
 					res.json({ error: error.message });
 				});
-		}
-	});
 });
 
 export default api;
