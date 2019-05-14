@@ -5,7 +5,6 @@ import Users from "../models/Users";
 const request = require("request");
 import { now } from "moment";
 import sgMail from "@sendgrid/mail";
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const api = Router();
 
@@ -42,7 +41,7 @@ api.post("/register", async (req, res) => {
 			img_profil: null,
 			created_at: createdAt
 		});
-		console.log(user);
+		sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 		await user.save();
 		const msg = {
 			to: `${mail}`,
@@ -56,9 +55,7 @@ api.post("/register", async (req, res) => {
 			from: "steevefeno1@gmail.com", // don't change this address unless you authorize it on mailgun settings
 			to: `steevefeno1@gmail.com`,
 			subject: "Alert next Racoler on the App!",
-			text: `Hey, ${
-				pseudo
-			} just joined the Racolapp team! Keep up the good work :D`
+			text: `Hey, ${pseudo} just joined the Racolapp team! Keep up the good work :D`
 		};
 		console.log(process.env.MAILGUN_API_KEY);
 		await request
